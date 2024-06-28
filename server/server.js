@@ -4,6 +4,7 @@ var cors = require('cors');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const salt = bcrypt.genSaltSync(10);
+const auth = require('./middleware/auth.js');
 
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
@@ -48,5 +49,8 @@ app.post('/users/signup', async (req, res) => {
     res.send({ token });  // Send token to the client
 })
 
+app.get('/users/info', auth, async (req, res) => {
+    res.send(req.user);
+})
 
 app.listen(PORT);
