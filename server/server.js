@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const salt = bcrypt.genSaltSync(10);
 const auth = require('./middleware/auth.js');
+const { check, validationResult} = require('express-validator');
 
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
@@ -17,7 +18,11 @@ app.get('/home', (req, res) => {
     res.send(`Hello`);
 })
 
-app.post('/users/signup', async (req, res) => {
+app.post('/users/signup', check("email", "This is not a valid email").isEmail(), async (req, res) => {
+    const myValidationResult = validationResult(req).array();
+    if (myValidationResult.length > 0) {
+        return res.status(400).send({ myValidationResult })
+    }
     const { firstName, lastName, email, password} = req.body;
 
     // Have a check to verify user is in database
