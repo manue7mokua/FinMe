@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const salt = bcrypt.genSaltSync(10);
 const auth = require('./middleware/auth.js');
 const { check, validationResult} = require('express-validator');
+require('dotenv').config();
 
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
@@ -54,7 +55,7 @@ app.post('/users/signup',
     })
 
     // Generate a jwt token for the new user
-    const token = jwt.sign({ id: newUser.id }, 'awognawole3280843halegn', { expiresIn: '1h' });
+    const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET_AUTH_TOKEN, { expiresIn: '1h' });
     res.send({ token });  // Send token to the client
 })
 
