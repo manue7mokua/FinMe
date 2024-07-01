@@ -22,13 +22,14 @@ app.post('/users/signup',
     check("email", "This is not a valid email").isEmail(),
     check("password", "Password must be 6 characters or more").isLength({ min: 6 }),
     async (req, res) => {
+
     const myValidationResult = validationResult(req).array();
     if (myValidationResult.length > 0) {
-        return res.status(400).send({ myValidationResult })
+        return res.status(400).send({ errors: myValidationResult })
     }
     const { firstName, lastName, email, password} = req.body;
 
-    // Have a check to verify user is in database
+    // Verify if user email already exists in database
     const existingUser = await prisma.student.findUnique({
         where: {
             email
@@ -53,7 +54,7 @@ app.post('/users/signup',
     })
 
     // Generate a jwt token for the new user
-    const token = jwt.sign(newUser, 'awognawole3280843halegn');
+    const token = jwt.sign({ id: newUser.id }, 'awognawole3280843halegn', { expiresIn: '1h' });
     res.send({ token });  // Send token to the client
 })
 
