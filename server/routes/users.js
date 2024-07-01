@@ -11,6 +11,7 @@ require('dotenv').config();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+// Route to sign up a user for an account
 router.post('/signup',
     check("email", "This is not a valid email").isEmail(),
     check("password", "Password must be 6 characters or more").isLength({ min: 6 }),
@@ -51,6 +52,7 @@ router.post('/signup',
     res.send({ token });  // Send token to the client
 })
 
+//Route to login existing user to application
 router.post('/login',
     check("email", "This is not a valid email").isEmail(),
     check("password", "Password is required").exists(),
@@ -91,6 +93,45 @@ router.post('/login',
         }
     }
 );
+
+// Route to delete user from database
+router.delete('/delete/:id', auth, async (req, res) => {
+    const { email, password } = req.body;
+    const userId = parseInt(req.params.id, 10);
+
+    try {
+      // Check if user email matches in db
+      const user = await prisma.student.findUnique({
+        where: {
+            id: userId,
+            email: email
+        }
+      });
+
+      if (!user) {
+        return res.status(404).send({ message: 'Please enter the correct email address' });
+      }
+
+      // Compare password with hashed db password
+      const passwordisMatch = bcrypt.compareSync(password, user.password);
+
+      if (!passwordisMatch) {
+        return res.status(401).send({ message: 'Wrong password! Try again mate!' });
+      }
+
+      // Delete user from database
+      await prisma.student.delete({
+        where: {
+          id: userId,
+        },
+      });
+
+      res.send({ message: 'Account deleted successfully' });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  });
 
 router.get('/info', auth, async (req, res) => {
     res.send(req.user);
