@@ -59,6 +59,47 @@ app.post('/users/signup',
     res.send({ token });  // Send token to the client
 })
 
+app.post('/users/login',
+    check("email", "This is not a valid email").isEmail(),
+    check("password", "Password is required").exists(),
+    async (req, res) => {
+        const myValidationResult = validationResult(req).array();
+        if (myValidationResult.length > 0) {
+            return res.status(400).json({ errors: myValidationResult });
+        }
+
+        const { email, password } = req.body;
+
+        try {
+            // Check if user actually exists
+            const user = await prisma.student.findUnique({
+                where: {
+                    email
+                }
+            });
+
+            if (!user) {
+                return res.status(400).send({ message: "Invalid Credentials" });
+            }
+
+            // Compare password
+            const passwordisMatch = bcrypt.compareSync(password, user.password);
+
+            if (!passwordisMatch) {
+                return res.status(400).send({ message: "Wrong password! Try again!" });
+            }
+
+            // If user is matched, send JWT token
+            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_AUTH_TOKEN, { expiresIn: '1h' });
+            res.send({ token });
+
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server error');
+        }
+    }
+);
+
 app.get('/users/info', auth, async (req, res) => {
     res.send(req.user);
 })
