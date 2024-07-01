@@ -18,7 +18,10 @@ app.get('/home', (req, res) => {
     res.send(`Hello`);
 })
 
-app.post('/users/signup', check("email", "This is not a valid email").isEmail(), async (req, res) => {
+app.post('/users/signup',
+    check("email", "This is not a valid email").isEmail(),
+    check("password", "Password must be 6 characters or more").isLength({ min: 6 }),
+    async (req, res) => {
     const myValidationResult = validationResult(req).array();
     if (myValidationResult.length > 0) {
         return res.status(400).send({ myValidationResult })
