@@ -44,5 +44,17 @@ router.post('/:id/addAccount', async(req, res) => {
     res.status(200).send('Great! New card added!');
 })
 
+router.get('/:id/accountInfo', async (req, res) => {
+    const studentId = parseInt(req.params.id);
+
+    // Get all user accounts
+    const bankAccounts = await prisma.account.findMany({
+        where: {
+            studentId
+        }
+    });
+
+    res.json(bankAccounts);
+})
 
 module.exports = router;
