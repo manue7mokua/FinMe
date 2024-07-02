@@ -26,7 +26,7 @@ model Account {
   id Int @id @default(autoincrement())
   student Student @relation(fields: [studentId], references: [id])
   studentId Int
-  accountNumber Int
+  accountNumber String
   accountName String
   cardExpiryDate DateTime
 }
