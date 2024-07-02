@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { addToBlacklist } = require('../utils/blacklist.js');
 
 const salt = bcrypt.genSaltSync(10);
 const auth = require('../middleware/auth.js');
@@ -132,6 +133,20 @@ router.delete('/delete/:id', auth, async (req, res) => {
       res.status(500).send('Server error');
     }
   });
+
+// Route to handle user logout
+router.post('/logout', auth, async (req, res) => {
+    const header = req.headers['Authorization'];
+    const authToken = header.split(' ')[1];
+
+    if (token == null) {
+        return res.status(404).send({ message: 'Authorization token not found' })
+    }
+
+    // If found add authentication token to blacklist
+    addToBlacklist(authToken);
+    res.send('Logout successful')
+})
 
 router.get('/info', auth, async (req, res) => {
     res.send(req.user);
