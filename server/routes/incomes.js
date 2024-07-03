@@ -60,6 +60,56 @@ router.get('/:id/incomeInfo', async (req, res) => {
 
 })
 
+// Route to update an income source
+router.put('/:id/updateIncome/:incomeId', async (req, res) => {
+    const { incomeName, incomeType, incomeAmount, startDate, endDate } = req.body;
+    const studentId = parseInt(req.params.id);
+    const incomeId = parseInt(req.params.incomeId);
+
+    try {
+        // Validate date inputs
+        if (!startDate || !endDate) {
+            return res.status(400).send('Enter a valid date!');
+        }
+
+        // Parse and format dates
+        const incomeStartDate = new Date(Date.parse(startDate)).toISOString();
+        const incomeEndDate = new Date(Date.parse(endDate)).toISOString();
+
+        // Find the income source to update
+        const income = await prisma.income.findUnique({
+            where: {
+                id: incomeId,
+                studentId: studentId
+            }
+        });
+
+        if (!income) {
+            return res.status(404).send('Income source not found!');
+        }
+
+        // Update the income source
+        const updatedIncome = await prisma.income.update({
+            where: {
+                id: incomeId
+            },
+            data: {
+                incomeName,
+                incomeType,
+                incomeAmount,
+                incomeStartDate,
+                incomeEndDate
+            }
+        });
+
+        // Return the updated income source
+        return res.json(updatedIncome);
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send('Server error!');
+    }
+});
+
 // Route to delete a student income source
 router.delete('/:id/deleteIncome/:incomeId', async (req, res) => {
     const { incomeName } = req.body;
