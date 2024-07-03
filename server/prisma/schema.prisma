@@ -55,4 +55,5 @@ model Expense {
   expenseName String
   expenseDescription String?
   expenseDate DateTime
+  isRecurring Boolean @default(false)
 }
