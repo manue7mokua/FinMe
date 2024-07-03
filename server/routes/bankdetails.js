@@ -94,7 +94,7 @@ router.delete('/:id/deleteAccount/:accountId', async (req, res) => {
         });
     } catch(err) {
         console.error(err.message);
-        res.status(500).send('Server error!');
+        return res.status(500).send('Server error!');
     }
 
     // Success if process completed without errors

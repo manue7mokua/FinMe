@@ -60,6 +60,40 @@ router.get('/:id/incomeInfo', async (req, res) => {
 
 })
 
+// Route to delete a student income source
+router.delete('/:id/deleteIncome/:incomeId', async (req, res) => {
+    const { incomeName } = req.body;
+    const studentId = parseInt(req.params.id);
+    const incomeId = parseInt(req.params.incomeId);
 
+    try {
+       // Find account specified by accountName
+        const income = await prisma.income.findUnique({
+            where: {
+                studentId,
+                id: incomeId,
+                incomeName
+            }
+        })
+
+        if (!income) {
+            return res.status(404).send('That income source does not exist!');
+        };
+
+        await prisma.income.delete({
+            where: {
+                id: incomeId,
+                incomeName
+            }
+        });
+
+    } catch(err) {
+        console.error(err.message);
+        return res.status(500).send('Server error!');
+    }
+
+    // Success if process completed without errors
+    res.status(200).send('Income source deleted successfully! :)');
+})
 
 module.exports = router;
