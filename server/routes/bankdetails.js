@@ -44,7 +44,6 @@ router.post('/:id/addAccount', async(req, res) => {
         res.status(500).send('Server error!');
     }
 
-
     // Return json of newly added card data
     res.status(200).send('Great! New card added!');
 })

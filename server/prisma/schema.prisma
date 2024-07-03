@@ -20,6 +20,7 @@ model Student {
   email String @unique
   password String
   accounts Account[]
+  incomes Income[]
 }
 
 model Account {
@@ -29,4 +30,15 @@ model Account {
   accountNumber String
   accountName String
   cardExpiryDate DateTime
+}
+
+model Income {
+  id Int @id @default(autoincrement())
+  student Student @relation(fields: [studentId], references: [id])
+  studentId Int
+  incomeName String
+  incomeType Int
+  incomeAmount Float
+  incomeStartDate DateTime
+  incomeEndDate DateTime
 }
