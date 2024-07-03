@@ -59,11 +59,11 @@ router.get('/:id/accountInfo', async (req, res) => {
             }
         });
     } catch (err) {
-        res.status(500).send('Server error!')
+        return res.status(500).send('Server error!')
     }
 
 
-    res.json(bankAccounts);
+    return res.json(bankAccounts);
 })
 
 // Route to delete a user bank account

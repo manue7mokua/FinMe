@@ -41,4 +41,25 @@ router.post('/:id/addIncome', async(req, res) => {
     return res.status(200).send('Great! New income stream added!');
 })
 
+// Route to get all student income sources
+router.get('/:id/incomeInfo', async (req, res) => {
+    const studentId = parseInt(req.params.id);
+
+    try {
+        // Get all user sources
+        const incomeSources = await prisma.income.findMany({
+            where: {
+                studentId
+            }
+        });
+
+        return res.json(incomeSources);
+    } catch (err) {
+        return res.status(500).send('Server error!')
+    }
+
+})
+
+
+
 module.exports = router;
