@@ -44,11 +44,11 @@ router.post('/:id/addAccount', async(req, res) => {
         res.status(500).send('Server error!');
     }
 
-
     // Return json of newly added card data
     res.status(200).send('Great! New card added!');
 })
 
+// Route to get all account info details
 router.get('/:id/accountInfo', async (req, res) => {
     const studentId = parseInt(req.params.id);
 
@@ -60,12 +60,76 @@ router.get('/:id/accountInfo', async (req, res) => {
             }
         });
     } catch (err) {
-        res.status(500).send('Server error!')
+        return res.status(500).send('Server error!')
     }
 
 
-    res.json(bankAccounts);
+    return res.json(bankAccounts);
 })
+
+// Route to update bank account details
+router.put('/:id/updateAccount/:accountId', async (req, res) => {
+    const { accountNumber, accountName, cardExpiresOn } = req.body;
+    const studentId = parseInt(req.params.id);
+    const accountId = parseInt(req.params.accountId);
+
+    // Extract year from expiry date
+    let expiryYear = cardExpiresOn.split(' ')[0];
+
+    // Extract month from expiry date
+    let expiryMonth = cardExpiresOn.split(' ')[1];
+
+    try {
+        // Validate date inputs
+        if (!expiryYear || !expiryMonth) {
+            return res.status(400).send('Enter a valid card expiry date!');
+        }
+
+         // Get the last day of month
+         const lastDayofMonth = (year, month) => {
+            return new Date(year, month, 0).getDate();
+        }
+
+        const setCardExpiryDate = (year, month) => {
+            const lastDay = lastDayofMonth(expiryYear, expiryMonth);
+            const expiryDate = new Date(year, month - 1, lastDay);
+
+            return expiryDate.toISOString();
+        }
+
+        const cardExpiryDate = setCardExpiryDate(expiryYear, expiryMonth);
+
+        // Find the bank account to update
+        const account = await prisma.account.findUnique({
+            where: {
+                id: accountId,
+                studentId: studentId
+            }
+        });
+
+        if (!account) {
+            return res.status(404).send('Income source not found!');
+        }
+
+        // Update the bank account details
+        const updatedCardDetails = await prisma.account.update({
+            where: {
+                id: accountId
+            },
+            data: {
+                accountNumber,
+                accountName,
+                cardExpiryDate
+            }
+        });
+
+        // Return the updated bank account details
+        return res.json(updatedCardDetails);
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send('Server error!');
+    }
+});
 
 // Route to delete a user bank account
 router.delete('/:id/deleteAccount/:accountId', async (req, res) => {
@@ -95,7 +159,7 @@ router.delete('/:id/deleteAccount/:accountId', async (req, res) => {
         });
     } catch(err) {
         console.error(err.message);
-        res.status(500).send('Server error!');
+        return res.status(500).send('Server error!');
     }
 
     // Success if process completed without errors

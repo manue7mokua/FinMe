@@ -1,8 +1,10 @@
-const express = require('express')
+const express = require('express');
 const app = express();
 var cors = require('cors');
-const userRoutes = require('./routes/users.js')
-const accountRoutes = require('./routes/bankdetails.js')
+const userRoutes = require('./routes/users.js');
+const accountRoutes = require('./routes/bankdetails.js');
+const incomeRoutes = require('./routes/incomes.js');
+const expenseRoutes = require('./routes/expenses.js');
 
 const PORT = 3000
 
@@ -14,5 +16,11 @@ app.use('/users', userRoutes);
 
 // Use account routes
 app.use('/users', accountRoutes);
+
+// Use income routes
+app.use('/users/', incomeRoutes);
+
+// Use expenses routes
+app.use('/users', expenseRoutes);
 
 app.listen(PORT);
