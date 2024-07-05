@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SignInImage from '../assets/cafe3.jpg';
-import SocialSignInBtn from './components/socialSignInBtn';
-import SignInForm from './components/signInForm';
+import SocialSignInBtn from './components/SocialSignInBtn';
+import SignInForm from './components/SignInForm';
 
 const SignIn = () => {
+
   return (
     <div className="min-h-screen flex ">
-
       <div className="w-7/12 bg-gray-900 flex items-center justify-center">
         <img src={SignInImage} alt="Decorative" className="h-full object-cover" />
       </div>
