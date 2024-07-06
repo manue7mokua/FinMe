@@ -6,9 +6,12 @@ const SignInForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setError('');
+        setSuccess('');
 
         try {
                 const response = await axios.post('http://localhost:3000/users/login',
@@ -18,6 +21,10 @@ const SignInForm = () => {
 
                 // Store token in local storage
                 localStorage.setItem('token', data.token);
+
+                // Success message on successful sign-in
+                setSuccess('Sign in successful');
+                setError('');
 
             } catch (err) {
                 if (err.response) {
@@ -37,7 +44,11 @@ const SignInForm = () => {
          type='text'
          placeholder='Username or Email'
          value={email}
-         onChange={(event) => setEmail(event.target.value)}
+         onChange={(event) => {
+          setEmail(event.target.value);
+          setError('');
+          setSuccess('');
+         }}
          />
 
         <FormInput
@@ -47,6 +58,7 @@ const SignInForm = () => {
         onChange={(event) => setPassword(event.target.value)}
         />
         {error && <p className='text-red-500' >{error}</p>}
+        {success && <p className='text-green-500'>{success}</p>}
         <button className='w-full p-2 bg-pink-500 text-white rounded-lg'>
             Sign In
         </button>
@@ -54,7 +66,7 @@ const SignInForm = () => {
             <a href='#' className='text-sm text-gray-600' >Forgot your password?</a>
         </div>
         <div className='text-center'>
-            <a href='#' className='text-sm text-gray-600' >Don't have an account? Sign Up</a>
+            <a href='/signup' className='text-sm text-gray-600' >Don't have an account? Sign Up</a>
         </div>
       </form>
     </div>

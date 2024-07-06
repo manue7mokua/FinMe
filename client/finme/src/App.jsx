@@ -1,16 +1,21 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import SignIn from './signIn/SignIn';
+import SignUp from './signUp/SignUp';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <SignIn/>
-    </>
+    <Router>
+      <Routes>
+        <Route path='/login' Component={SignIn} />
+        <Route path='/signup' Component={SignUp} />
+        <Route path='/' Component={SignIn} /> {/* Default route*/}
+      </Routes>
+
+    </Router>
   )
 }
 
