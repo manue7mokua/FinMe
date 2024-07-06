@@ -54,7 +54,7 @@ const SignInForm = () => {
             <a href='#' className='text-sm text-gray-600' >Forgot your password?</a>
         </div>
         <div className='text-center'>
-            <a href='#' className='text-sm text-gray-600' >Don't have an account? Sign Up</a>
+            <a href='/signup' className='text-sm text-gray-600' >Don't have an account? Sign Up</a>
         </div>
       </form>
     </div>
