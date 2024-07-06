@@ -8,10 +8,12 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
 
     try {
       const response = await axios.post('http://localhost:3000/users/signup', { firstName, lastName, email, password });
@@ -19,6 +21,10 @@ const SignUpForm = () => {
 
       // Store token in local storage
       localStorage.setItem('token', data.token);
+
+      // Success message on sign-up
+      setSuccess(`Welcome ${firstName} :)`);
+      setError('');
 
     } catch (err) {
       setError('Sign-up failed');
@@ -32,19 +38,31 @@ const SignUpForm = () => {
         type="text"
         placeholder="First Name"
         value={firstName}
-        onChange={(event) => setFirstName(event.target.value)}
+        onChange={(event) => {
+            setFirstName(event.target.value)
+            setError('');
+            setSuccess('');
+        }}
       />
       <FormInput
         type="text"
         placeholder="Last Name"
         value={lastName}
-        onChange={(event) => setLastName(event.target.value)}
+        onChange={(event) => {
+            setLastName(event.target.value)
+            setError('');
+            setSuccess('');
+        }}
       />
       <FormInput
         type="email"
         placeholder="Email address"
         value={email}
-        onChange={(event) => setEmail(event.target.value)}
+        onChange={(event) => {
+            setEmail(event.target.value);
+            setError('');
+            setSuccess('');
+           }}
       />
       <FormInput
         type="password"
@@ -53,6 +71,7 @@ const SignUpForm = () => {
         onChange={(event) => setPassword(event.target.value)}
       />
       {error && <p className="text-red-500">{error}</p>}
+      {success && <p className='text-green-500'>{success}</p>}
       <p className="text-sm text-gray-600">Use 8 or more characters with a mix of letters, numbers & symbols</p>
       <button type="submit" className="w-full p-2 bg-pink-500 text-white rounded-lg">Create account</button>
       <div className="text-center">
