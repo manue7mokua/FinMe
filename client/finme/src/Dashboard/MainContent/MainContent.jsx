@@ -1,12 +1,13 @@
 import React from 'react';
 import TopSection from './TopSection';
+import IncomesSection from './IncomesSection';
 
 const MainContent = () => {
   return (
     <div className='flex-1 p-6 bg-gray-100'>
         <TopSection />
-        <div>
-            {/* IncomesSection */}
+        <div className='flex space-x-6 mt-6'>
+            <IncomesSection />
             {/* ExpensesSection */}
         </div>
         <div>
