@@ -1,6 +1,7 @@
 import React from 'react';
 import TopSection from './TopSection';
 import IncomesSection from './IncomesSection';
+import ExpensesSection from './ExpensesSection';
 
 const MainContent = () => {
   return (
@@ -8,7 +9,7 @@ const MainContent = () => {
         <TopSection />
         <div className='flex space-x-6 mt-6'>
             <IncomesSection />
-            {/* ExpensesSection */}
+            <ExpensesSection />
         </div>
         <div>
             {/* Watchlist */}
