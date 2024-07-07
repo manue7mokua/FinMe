@@ -2,6 +2,7 @@ import React from 'react';
 import TopSection from './TopSection';
 import IncomesSection from './IncomesSection';
 import ExpensesSection from './ExpensesSection';
+import Watchlist from './Watchlist';
 
 const MainContent = () => {
   return (
@@ -11,8 +12,8 @@ const MainContent = () => {
             <IncomesSection />
             <ExpensesSection />
         </div>
-        <div>
-            {/* Watchlist */}
+        <div className='flex space x-6 mt-6'>
+            <Watchlist />
             {/* IncomeComparisonChart */}
         </div>
     </div>
