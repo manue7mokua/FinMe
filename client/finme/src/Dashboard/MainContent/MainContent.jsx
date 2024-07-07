@@ -3,6 +3,7 @@ import TopSection from './TopSection';
 import IncomesSection from './IncomesSection';
 import ExpensesSection from './ExpensesSection';
 import Watchlist from './Watchlist';
+import IncomeComparisonChart from './IncomeComparisonChart';
 
 const MainContent = () => {
   return (
@@ -12,9 +13,9 @@ const MainContent = () => {
             <IncomesSection />
             <ExpensesSection />
         </div>
-        <div className='flex space x-6 mt-6'>
+        <div className='flex space-x-6 mt-6'>
             <Watchlist />
-            {/* IncomeComparisonChart */}
+            <IncomeComparisonChart />
         </div>
     </div>
   )
