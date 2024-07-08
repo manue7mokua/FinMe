@@ -53,6 +53,10 @@
     --shadow-01: 0px 20px 25px 0px rgba(76, 103, 100, 0.1);
     --specialbg: rgba(210, 210, 210, 0.25);
     --white: rgba(255, 255, 255, 1);
+    --backgroundsparent: rgba(242, 240, 249, 1);
+    --backgroundsprimary: rgba(255, 255, 255, 1);
+    --fontsprimary: rgba(37, 33, 59, 1);
+    --fontsprimary-icon: rgba(139, 131, 186, 1);
+    --fontsprimary-variant: rgba(110, 104, 147, 1);
+    --fontsstroke: rgba(198, 194, 222, 1);
   }
-
-

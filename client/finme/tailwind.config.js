@@ -14,6 +14,12 @@ export default {
         secondary: "var(--secondary)",
         specialbg: "var(--specialbg)",
         white: "var(--white)",
+        backgroundsparent: "var(--backgroundsparent)",
+        backgroundsprimary: "var(--backgroundsprimary)",
+        fontsprimary: "var(--fontsprimary)",
+        "fontsprimary-icon": "var(--fontsprimary-icon)",
+        "fontsprimary-variant": "var(--fontsprimary-variant)",
+        fontsstroke: "var(--fontsstroke)"
       },
       fontFamily: {
         "bold-16-24": "var(--bold-16-24-font-family)",
