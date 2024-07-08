@@ -4,7 +4,7 @@ import MainContent from './MainContent/MainContent';
 
 const Dashboard = () => {
   return (
-    <div className='min-h-screen flex'>
+    <div className='h-screen flex'>
         <Sidebar />
         <MainContent />
     </div>
