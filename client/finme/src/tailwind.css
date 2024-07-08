@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .all-\[unset\] {
+      all: unset;
+    }
+  }
+
+  :root {
+    --bold-16-24-font-family: "Inter", Helvetica;
+    --bold-16-24-font-size: 16px;
+    --bold-16-24-font-style: normal;
+    --bold-16-24-font-weight: 700;
+    --bold-16-24-letter-spacing: 0px;
+    --bold-16-24-line-height: 24px;
+    --default-black: rgba(25, 25, 25, 1);
+    --exbold-22-32-font-family: "Inter", Helvetica;
+    --exbold-22-32-font-size: 22px;
+    --exbold-22-32-font-style: normal;
+    --exbold-22-32-font-weight: 800;
+    --exbold-22-32-letter-spacing: 0px;
+    --exbold-22-32-line-height: 32px;
+    --gray-02: rgba(135, 135, 135, 1);
+    --gray-04: rgba(209, 209, 209, 1);
+    --gray-06: rgba(243, 243, 243, 1);
+    --medium-12-16-font-family: "Inter", Helvetica;
+    --medium-12-16-font-size: 12px;
+    --medium-12-16-font-style: normal;
+    --medium-12-16-font-weight: 500;
+    --medium-12-16-letter-spacing: 0px;
+    --medium-12-16-line-height: 16px;
+    --medium-14-20-font-family: "Inter", Helvetica;
+    --medium-14-20-font-size: 14px;
+    --medium-14-20-font-style: normal;
+    --medium-14-20-font-weight: 500;
+    --medium-14-20-letter-spacing: 0px;
+    --medium-14-20-line-height: 20px;
+    --regular-12-16-font-family: "Inter", Helvetica;
+    --regular-12-16-font-size: 12px;
+    --regular-12-16-font-style: normal;
+    --regular-12-16-font-weight: 400;
+    --regular-12-16-letter-spacing: 0px;
+    --regular-12-16-line-height: 16px;
+    --secondary: rgba(82, 82, 86, 1);
+    --semibold-16-24-font-family: "Inter", Helvetica;
+    --semibold-16-24-font-size: 16px;
+    --semibold-16-24-font-style: normal;
+    --semibold-16-24-font-weight: 600;
+    --semibold-16-24-letter-spacing: 0px;
+    --semibold-16-24-line-height: 24px;
+    --shadow-01: 0px 20px 25px 0px rgba(76, 103, 100, 0.1);
+    --specialbg: rgba(210, 210, 210, 0.25);
+    --white: rgba(255, 255, 255, 1);
+  }
+
+
