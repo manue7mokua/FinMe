@@ -4,6 +4,7 @@ import IncomesSection from './IncomesSection';
 import ExpensesSection from './ExpensesSection';
 import Watchlist from './Watchlist';
 import IncomeComparisonChart from './IncomeComparisonChart';
+import BotQuery from './BotQuery';
 
 const MainContent = () => {
   return (
@@ -20,7 +21,11 @@ const MainContent = () => {
           </div>
           <IncomeComparisonChart/>
         </div>
-        <ExpensesSection/>
+        <div className='flex flex-col gap-10'>
+          <ExpensesSection/>
+          <BotQuery/>
+        </div>
+
       </div>
 
     </div>
