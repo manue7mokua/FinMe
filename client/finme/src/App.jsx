@@ -4,6 +4,7 @@ import './App.css';
 import SignIn from './signIn/SignIn';
 import SignUp from './signUp/SignUp';
 import Dashboard from './Dashboard/Dashboard';
+import Wallets from './Wallets/Wallets';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,6 +16,7 @@ function App() {
         <Route path='/login' Component={SignIn} />
         <Route path='/signup' Component={SignUp} />
         <Route path='/dashboard' Component={Dashboard} />
+        <Route path='/wallets' Component={Wallets} />
       </Routes>
 
     </Router>
