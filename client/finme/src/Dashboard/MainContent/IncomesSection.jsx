@@ -2,7 +2,7 @@ import React from 'react';
 
 const IncomesSection = () => {
   return (
-    <div className='flex flex-col w-[438px] h-[538px] items-start gap-[15px] pl-6 pr-[34px] py-5 relative bg-white rounded-[17px]'>
+    <div className='flex flex-col w-[438px] h-[538px] items-start gap-[15px] pl-6 pr-[34px] py-5 relative bg-white rounded-[17px] overflow-scroll'>
     <div className="relative w-fit mt-[-1.00px] [font-family:'Poppins-SemiBold',Helvetica] font-semibold text-[#262a41] text-[40px] tracking-[0.67px] leading-[50px] whitespace-nowrap">
         Incomes
     </div>

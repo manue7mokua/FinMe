@@ -8,7 +8,7 @@ import microsoftIcon from '../../assets/microsoft.svg';
 
 const Watchlist = () => {
   return (
-    <div className='relative w-[380px] h-[291px] bg-white rounded-lg'>
+    <div className='relative w-[380px] h-[267px] bg-white rounded-lg overflow-scroll'>
         <div className='inline-flex flex-row h-3.5 justify-center gap-1.5 p-2 pb-4'>
             <div className='relative w-fit mt-[4px] mb-[-2.18px] [font-family:"Everett-Medium", Helvetica] font-bold text-[#2c2c2c] text-lg text-center tracking-[0] leading-normal'>
                 Watchlist
