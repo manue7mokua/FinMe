@@ -8,8 +8,8 @@ import IncomeComparisonChart from './IncomeComparisonChart';
 const MainContent = () => {
   return (
     <div className='flex-1 p-6 bg-gray-100 overflow-auto'>
-        <TopSection />
         <div className='flex space-x-6 mt-6'>
+            <TopSection />
             <IncomesSection />
             <ExpensesSection />
         </div>

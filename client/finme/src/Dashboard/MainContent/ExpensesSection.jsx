@@ -1,35 +1,66 @@
 import React from 'react';
+import ExpenseListItem from './ExpenseListItem';
+import foodIcon from '../../assets/Food.svg';
+import downArrow from '../../assets/downarrow.svg';
+import upArrow from '../../assets/uparrow.svg';
+import shoppingIcon from '../../assets/Shopping.svg';
+import transportIcon from '../../assets/transport.svg';
 
 const ExpensesSection = () => {
   return (
-    <div className='bg-white p-6 rounded-lg shadow-md flex-1'>
-        <h3 className='text-xl font-bold'>Expenses</h3>
-        <ul className='mt-4 space-y-4'>
-            <li className='flex justify-between'>
-                <span>Utilities</span>
-                <span>$650.00</span>
-            </li>
-            <li className='flex justify-between'>
-                <span>Housing</span>
-                <span>$1150.00</span>
-            </li>
-            <li className='flex justify-between'>
-                <span>Subscriptions</span>
-                <span>$350.00</span>
-            </li>
-            <li className='flex justify-between'>
-                <span>Self-care</span>
-                <span>$420.00</span>
-            </li>
-            <li className='flex justify-between'>
-                <span>Food</span>
-                <span>$150.00</span>
-            </li>
-            <li className='flex justify-between'>
-                <span>Trips</span>
-                <span>$3650.00</span>
-            </li>
-        </ul>
+
+    <div className='flex flex-col w-[244px] h-[641px] items-start gap-[15px] px-6 py-5 relative bg-white rounded-[17px]'>
+        <div className='relative top-0 left-0 [font-family:"Poppins-Semibold", Helvetica] font-semibold text-[#262a41] text-[40px] tracking-[0.67] leading-[50px] whitespace-nowrap'>
+            Expenses
+        </div>
+        <ExpenseListItem
+            className='!absolute !top-[186px] !left-[22px]'
+            icon={foodIcon}
+            category='Shopping'
+            amount={'$230'}
+            percentageChange={'20%'}
+            indicator={downArrow}
+        />
+        <ExpenseListItem
+            className='!absolute !top-[186px] !left-[22px]'
+            icon={shoppingIcon}
+            category='Shopping'
+            amount={'$230'}
+            percentageChange={'20%'}
+            indicator={upArrow}
+        />
+        <ExpenseListItem
+            className='!absolute !top-[186px] !left-[22px]'
+            icon={transportIcon}
+            category='Shopping'
+            amount={'$230'}
+            percentageChange={'20%'}
+            indicator={downArrow}
+        />
+        <ExpenseListItem
+            className='!absolute !top-[186px] !left-[22px]'
+            icon={foodIcon}
+            category='Shopping'
+            amount={'$230'}
+            percentageChange={'20%'}
+            indicator={downArrow}
+        />
+        <ExpenseListItem
+            className='!absolute !top-[186px] !left-[22px]'
+            icon={shoppingIcon}
+            category='Shopping'
+            amount={'$230'}
+            percentageChange={'20%'}
+            indicator={upArrow}
+        />
+        <ExpenseListItem
+            className='!absolute !top-[186px] !left-[22px]'
+            icon={transportIcon}
+            category='Shopping'
+            amount={'$230'}
+            percentageChange={'20%'}
+            indicator={downArrow}
+        />
     </div>
   )
 }
