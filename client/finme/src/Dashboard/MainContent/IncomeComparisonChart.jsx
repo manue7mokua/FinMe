@@ -58,9 +58,11 @@ const IncomeComparisonChart = () => {
     };
 
   return (
-    <div className='bg-white p-6 rounded-lg shadow-md flex-1'>
-        <h3 className='text-xl font-bold'>Weekly Income Comparison</h3>
-        <Bar data={data} options={options}/>
+    <div className='h-[285px] bg-white p-6 rounded-lg shadow-md flex items-center justify-center'>
+        <div className='h-[200px] flex flex-col justify-center items-center'>
+           <h3 className='text-xl font-bold'>Weekly Income Comparison</h3>
+            <Bar data={data} options={options}/>
+        </div>
     </div>
   )
 }
