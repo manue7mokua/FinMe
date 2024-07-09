@@ -19,7 +19,8 @@ export default {
         fontsprimary: "var(--fontsprimary)",
         "fontsprimary-icon": "var(--fontsprimary-icon)",
         "fontsprimary-variant": "var(--fontsprimary-variant)",
-        fontsstroke: "var(--fontsstroke)"
+        fontsstroke: "var(--fontsstroke)",
+        darkgoldenrod: "#997c00",
       },
       fontFamily: {
         "bold-16-24": "var(--bold-16-24-font-family)",
