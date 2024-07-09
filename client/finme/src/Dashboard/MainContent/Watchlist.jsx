@@ -1,27 +1,49 @@
 import React from 'react';
+import plusIcon from '../../assets/plus.svg';
+import StockListItem from './StockListItem';
+import amazonIcon from '../../assets/amazon-icon.svg';
+import cocacolaIcon from '../../assets/coca-cola.svg';
+import bmwIcon from '../../assets/bmw.svg';
+import microsoftIcon from '../../assets/microsoft.svg';
 
 const Watchlist = () => {
   return (
-    <div className='bg-white p-6 rounded-lg shadow-md flex-1'>
-        <h3 className='text-xl font-bold'>Watchlist</h3>
-        <ul className='mt-4 space-y-4'>
-            <li className='flex justify-between'>
-                <span>Amazon.com, Inc.</span>
-                <span className='text-green-500'>+3.02</span>
-            </li>
-            <li className='flex justify-between'>
-                <span>Coca-Cola Co</span>
-                <span className='text-red-500'>-0.32</span>
-            </li>
-            <li className='flex justify-between'>
-                <span>Meta Platforms, Inc.</span>
-                <span className='text-green-500'>+0.59</span>
-            </li>
-            <li className='flex justify-between'>
-                <span>Microsoft Corp</span>
-                <span className='text-green-500'>+0.16</span>
-            </li>
-        </ul>
+    <div className='relative w-[380px] h-[291px] bg-white rounded-lg'>
+        <div className='inline-flex flex-row h-3.5 justify-center gap-1.5 p-2 pb-4'>
+            <div className='relative w-fit mt-[4px] mb-[-2.18px] [font-family:"Everett-Medium", Helvetica] font-bold text-[#2c2c2c] text-lg text-center tracking-[0] leading-normal'>
+                Watchlist
+            </div>
+        </div>
+        <div className='p-4 inline-flex flex-col w-[380px] h-[291px] items-start justify-center gap-4 absolute top-[30px] left-0 overflow-scroll'>
+            <StockListItem
+                companyIcon={amazonIcon}
+                companyName={'Amazon.com, Inc'}
+                companyAbbrev={'AMZN'}
+                stockPrice={'$102.24'}
+                performancePercentage={'+3.02'}
+            />
+            <StockListItem
+                companyIcon={cocacolaIcon}
+                companyName={'Coca-Cola Co'}
+                companyAbbrev={'KO'}
+                stockPrice={'$60.49'}
+                performancePercentage={'+0.32'}
+            />
+            <StockListItem
+                companyIcon={bmwIcon}
+                companyName={'Bayerische Motoren Werke AG'}
+                companyAbbrev={'BMW'}
+                stockPrice={'$92.94'}
+                performancePercentage={'+0.59'}
+            />
+            <StockListItem
+                companyIcon={microsoftIcon}
+                companyName={'Microsoft Corp'}
+                companyAbbrev={'MSFT'}
+                stockPrice={'$248.16'}
+                performancePercentage={'+0.16'}
+            />
+        </div>
     </div>
   )
 }

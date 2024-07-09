@@ -7,7 +7,7 @@ import ellipseBar from '../../assets/ellipseBar.svg';
 
 const TopSection = () => {
   return (
-    <div className="inline-flex flex-col h-[232px] items-start gap-2.5 relative">
+    <div className="inline-flex flex-col w-[380px] h-[232px] items-start gap-2.5 relative">
       <div className="inline-flex flex-col items-start gap-5 px-6 py-5 relative flex-[0_0_auto] bg-white rounded-lg shadow-shadow-01">
         <header className="flex w-[304px] items-center justify-between pt-0 pb-3 px-0 relative flex-[0_0_auto] bg-transparent [border-top-style:none] [border-right-style:none] border-b [border-bottom-style:solid] [border-left-style:none] border-gray-06">
           <div className="inline-flex items-center gap-[9px] relative flex-[0_0_auto]">
