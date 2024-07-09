@@ -7,17 +7,25 @@ import IncomeComparisonChart from './IncomeComparisonChart';
 
 const MainContent = () => {
   return (
-    <div className='flex-1 p-6 bg-gray-100 overflow-auto'>
-        <div className='flex space-x-6 mt-6'>
-            <TopSection />
-            <IncomesSection />
-            <ExpensesSection />
+    <>
+    <div className='flex-1 p-6 bg-black text-black overflow-auto flex'>
+      <div className='flex flex-row gap-10 flex-grow'>
+        <div className='flex flex-col gap-10'>
+        <div className='flex flex-row gap-10 flex-grow'>
+            <div className='flex flex-col gap-10'>
+            <TopSection/>
+            <Watchlist/>
+          </div>
+          <IncomesSection className='flex-grow'/>
+          </div>
+          <IncomeComparisonChart/>
         </div>
-        <div className='flex space-x-6 mt-6'>
-            <Watchlist />
-            <IncomeComparisonChart />
-        </div>
+        <ExpensesSection/>
+      </div>
+
     </div>
+    </>
+
   )
 }
 
