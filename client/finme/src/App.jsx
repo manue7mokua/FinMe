@@ -19,6 +19,7 @@ function App() {
         <Route path='/dashboard' Component={Dashboard} />
         <Route path='/wallets' Component={Wallets} />
         <Route path='/incomes' Component={Incomes} />
+        <Route path='/expenses' Component={Expenses} />
       </Routes>
 
     </Router>
