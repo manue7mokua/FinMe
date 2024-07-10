@@ -35,10 +35,38 @@ const IncomesSection = () => {
             Paid
             </div>
         </div>
-        <div className='flex flex-colum gap-1'>
-          <IncomeListItem />
+        <div className='flex flex-col gap-1'>
+          <IncomeListItem
+            incomeName={`Teaching Assistant`}
+            incomeDateRange={`May, 5th - Sep, 27th`}
+            incomeAmount={`$200`}
+            incomeCurrencyDenomination={`USD`}
+          />
+          <IncomeListItem
+            incomeName={`Research Assistant`}
+            incomeDateRange={`Aug, 15th - Nov, 27th`}
+            incomeAmount={`$200`}
+            incomeCurrencyDenomination={`USD`}
+          />
+          <IncomeListItem
+            incomeName={`Web Dev Freelance`}
+            incomeDateRange={`July, 3rd - Aug, 9th`}
+            incomeAmount={`$200`}
+            incomeCurrencyDenomination={`USD`}
+          />
+          <IncomeListItem
+            incomeName={`Tax Return`}
+            incomeDateRange={`April 19th`}
+            incomeAmount={`$200`}
+            incomeCurrencyDenomination={`USD`}
+          />
         </div>
-
+        <IncomeListItem
+            incomeName={`MIT Hackathon`}
+            incomeDateRange={`Oct, 7th - Oct, 8th`}
+            incomeAmount={`$200`}
+            incomeCurrencyDenomination={`USD`}
+          />
     </div>
     </div>
   )

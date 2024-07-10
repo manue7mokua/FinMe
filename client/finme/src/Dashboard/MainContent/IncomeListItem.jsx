@@ -7,7 +7,7 @@ const IncomeListItem = ({
   incomeCurrencyDenomination
 }) => {
   return (
-    <div className="w-[427px] h-[58px] top-[155px] absolute left-0 rounded-[10px]">
+    <div className="w-[427px] h-[58px] top-[155px] relative left-0 rounded-[10px]">
           <div className="absolute w-96 h-[57px] top-0 left-0 overflow-hidden">
             <div className="relative w-[1100px] h-[60px]">
               <div className="absolute w-[1100px] h-[60px] top-0 left-0">
@@ -16,17 +16,17 @@ const IncomeListItem = ({
                 </div>
               </div>
               <div className="absolute w-[200px] top-2.5 left-[105px] [font-family:'Inter-Medium',Helvetica] font-medium text-fontsprimary text-sm tracking-[0] leading-[normal]">
-                Bananas
+                {incomeName}
               </div>
               <div className="absolute w-[200px] top-8 left-[105px] [font-family:'Inter-Regular',Helvetica] font-normal text-fontsprimary-variant text-sm tracking-[0.70px] leading-[normal]">
-                May, 4 - June, 5
+                {incomeDateRange}
               </div>
               <div className="absolute w-[15px] h-[15px] top-[23px] left-[60px] bg-[url(/union.svg)] bg-[100%_100%]" />
               <div className="w-20 top-1.5 left-72 [font-family:'Inter-Medium',Helvetica] font-medium text-fontsprimary text-sm tracking-[0] absolute text-right leading-[normal]">
-                $200
+                {incomeAmount}
               </div>
               <div className="top-[31px] left-[281px] absolute w-20 [font-family:'Inter-Regular',Helvetica] font-normal text-fontsprimary-variant text-xs text-right tracking-[0.60px] leading-[normal]">
-                USD
+                {incomeCurrencyDenomination}
               </div>
             </div>
           </div>
