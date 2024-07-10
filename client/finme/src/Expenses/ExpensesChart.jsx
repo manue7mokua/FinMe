@@ -4,8 +4,8 @@ import 'chart.js/auto'
 
 const ExpensesChart = () => {
   return (
-    <div>
-
+    <div className='w-full max-w-xl my-6 mx-auto'>
+        <Bar data/>
     </div>
   )
 }
