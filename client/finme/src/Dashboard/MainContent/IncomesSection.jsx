@@ -7,7 +7,7 @@ const IncomesSection = () => {
     <div className="relative w-fit mt-[-1.00px] [font-family:'Poppins-SemiBold',Helvetica] font-semibold text-[#262a41] text-[40px] tracking-[0.67px] leading-[50px] whitespace-nowrap">
         Incomes
     </div>
-    <div className="relative w-[462px] h-[498px] mb-[-65.00px] mr-[-82.00px]">
+    <div className="relative w-full h-full mb-[-65.00px] mr-[-82.00px]">
     <div className="absolute w-[87px] top-[127px] left-[105px] [font-family:'Inter-SemiBold',Helvetica] font-semibold text-fontsprimary-variant text-xs tracking-[0.60px] leading-[normal] whitespace-nowrap">
           NAME
         </div>
@@ -60,13 +60,14 @@ const IncomesSection = () => {
             incomeAmount={`$200`}
             incomeCurrencyDenomination={`USD`}
           />
-        </div>
-        <IncomeListItem
+          <IncomeListItem
             incomeName={`MIT Hackathon`}
             incomeDateRange={`Oct, 7th - Oct, 8th`}
             incomeAmount={`$200`}
             incomeCurrencyDenomination={`USD`}
           />
+        </div>
+
     </div>
     </div>
   )
