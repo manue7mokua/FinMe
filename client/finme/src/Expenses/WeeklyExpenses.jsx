@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 const WeeklyExpenses = () => {
   return (
     <div>
-      
+
     </div>
   )
 }
 
-export default WeeklyExpenses
+export default WeeklyExpenses;
