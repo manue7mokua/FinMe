@@ -13,7 +13,11 @@ const WeeklyExpenses = () => {
     { categoryIcon: '🎬', categoryTitle: 'Entertainment', expenseDate: '5:12 pm', expenseDay: 'Saturday', expenseAmount: '-35.20' }
   ];
   return (
-    <div>
+    <div className="p-5 bg-white">
+      <h2 className="text-xl font-bold mb-4">This week...</h2>
+      {expensesThisWeek.map((expense, index) => (
+        <ExpenseItem key={index} {...expense} />
+      ))}
 
     </div>
   )

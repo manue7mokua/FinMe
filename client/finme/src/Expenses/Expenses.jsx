@@ -13,7 +13,6 @@ const Expenses = () => {
         <div className="flex flex-col lg:w-1/3 lg:ml-10 mt-5 lg:mt-0 container mx-auto p-5">
             <ExpensesHeader />
             <WeeklyExpenses />
-            <WeeklyExpenses />
         </div>
         <div className="flex flex-col lg:w-1/3 lg:ml-10 mt-5 lg:mt-0">
             <CategoryWeighting />
