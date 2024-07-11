@@ -6,6 +6,7 @@ import SignUp from './signUp/SignUp';
 import Dashboard from './Dashboard/Dashboard';
 import Wallets from './Wallets/Wallets';
 import Incomes from './Incomes/Incomes';
+import Expenses from './Expenses/Expenses';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,6 +20,7 @@ function App() {
         <Route path='/dashboard' Component={Dashboard} />
         <Route path='/wallets' Component={Wallets} />
         <Route path='/incomes' Component={Incomes} />
+        <Route path='/expenses' Component={Expenses} />
       </Routes>
 
     </Router>
