@@ -18,7 +18,10 @@ const WeeklyExpenses = () => {
       {expensesThisWeek.map((expense, index) => (
         <ExpenseItem key={index} {...expense} />
       ))}
-
+      <h2 className="text-xl font-bold mt-6 mb-4">Last Week, (20th - 27th March)</h2>
+      {expensesLastWeek.map((expense, index) => (
+        <ExpenseItem key={index} {...expense} />
+      ))}
     </div>
   )
 }
