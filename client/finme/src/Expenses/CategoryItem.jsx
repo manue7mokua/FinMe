@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CategoryWeighting = () => {
+const CategoryItem = () => {
   return (
     <div>
 
@@ -8,4 +8,4 @@ const CategoryWeighting = () => {
   )
 }
 
-export default CategoryWeighting;
+export default CategoryItem;
