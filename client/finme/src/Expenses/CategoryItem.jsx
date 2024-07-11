@@ -6,10 +6,10 @@ const CategoryItem = ({
     percentageWidth
 }) => {
   return (
-    <div className="flex justify-between items-center p-5 border-b border-gray-200">
-        <div className='flex flex-row justify-between'>
+    <div className="flex flex-col justify-between items-center p-5 border-b border-gray-200">
+        <div className='w-full flex flex-row items-center justify-between'>
             <p className='font-bold'>{categoryName}</p>
-            <span className="text-right block mt-1">{categoryAmount}</span>
+            <span className="text-right text-gray-800 block mt-1">{categoryAmount}</span>
         </div>
         <div className="w-full bg-gray-300 rounded-full h-2.5 mt-2">
             <div className="bg-green-500 h-2.5 rounded-full" style={{ width: percentageWidth }}></div>
@@ -19,4 +19,3 @@ const CategoryItem = ({
 }
 
 export default CategoryItem;
-
