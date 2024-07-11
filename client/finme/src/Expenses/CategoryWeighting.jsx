@@ -1,4 +1,5 @@
 import React from 'react';
+import CategoryItem from './CategoryItem';
 
 const CategoryWeighting = () => {
     const allCategories = [
@@ -12,7 +13,9 @@ const CategoryWeighting = () => {
   return (
     <div className='bg-gray-200 p-5 rounded-lg'>
         <h2 className='text-xl font-bold mb-4'>Where your money goes?</h2>
-        
+        {allCategories.map((category, index) => (
+        <CategoryItem key={index} {...category} />
+      ))}
     </div>
   )
 }
