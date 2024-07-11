@@ -7,7 +7,9 @@ const CategoryItem = () => {
             <p className='font-bold'>category name</p>
             <span className="text-right block mt-1">category amount</span>
         </div>
-
+        <div className="w-full bg-gray-300 rounded-full h-2.5 mt-2">
+            <div className="bg-green-500 h-2.5 rounded-full" style={{ width: item.width }}></div>
+        </div>
     </div>
   )
 }
