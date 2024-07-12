@@ -1,5 +1,4 @@
 import React from 'react';
-import plusIcon from '../../assets/plus.svg';
 import StockListItem from './StockListItem';
 import amazonIcon from '../../assets/amazon-icon.svg';
 import cocacolaIcon from '../../assets/coca-cola.svg';
