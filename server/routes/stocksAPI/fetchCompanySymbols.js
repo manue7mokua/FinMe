@@ -2,6 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
+const router = express.Router();
 
 async function fetchAndCacheCompanySymbols() {
     const apiKey = process.env.FINME_FMP_API_KEY;

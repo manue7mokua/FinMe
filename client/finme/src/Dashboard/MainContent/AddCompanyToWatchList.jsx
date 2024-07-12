@@ -2,29 +2,14 @@ import React, { useState, useEffect } from 'react';
 
 const AddCompanyModal = ({ isOpen, onClose, onAddCompany }) => {
     const [companyName, setCompanyName] = useState('');
-    const [suggestions, setSuggestions] = useState([]);
 
-    useEffect(() => {
-        if (companyName.length > 1) {
-            fetchSuggestions(companyName);
-        } else {
-            setSuggestions([]);
-        }
-    }, [companyName]);
-
-    const fetchSuggestions = async (query) => {
+    const handleAddCompany = async () => {
         try {
-            const response = await fetch(`/searchCompanySymbols?query=${query}`);
-            const data = await response.json();
-            setSuggestions(data);
+            await onAddCompany(companyName);
+            onClose();
         } catch (error) {
-            console.error('Error fetching company symbols:', error);
+            console.error('Error adding company:', error);
         }
-    };
-
-    const handleAddCompany = (name) => {
-        onAddCompany(name);
-        onClose();
     };
 
     if (!isOpen) return null;
@@ -41,17 +26,6 @@ const AddCompanyModal = ({ isOpen, onClose, onAddCompany }) => {
                     className='border p-2 w-full mb-4'
                     placeholder='Enter company name'
                 />
-                <ul className='mb-4'>
-                    {suggestions.map((suggestion) => (
-                        <li
-                            key={suggestion.symbol}
-                            onClick={() => handleAddCompany(suggestion.name)}
-                            className='cursor-pointer p-2 hover:bg-gray-200'
-                        >
-                            {suggestion.name} ({suggestion.symbol})
-                        </li>
-                    ))}
-                </ul>
                 <div className='flex justify-end'>
                     <button onClick={handleAddCompany} className='bg-blue-500 text-white p-2 rounded mr-2'>
                         Add Company

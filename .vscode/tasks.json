@@ -10,8 +10,7 @@
             "options": {
                 "cwd": "${workspaceFolder}/server"
             },
-            "isBackground": true,
-            "problemMatcher": []
+            "isBackground": false
         }
     ]
 }

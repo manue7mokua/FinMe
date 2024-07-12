@@ -8,56 +8,34 @@ import microsoftIcon from '../../assets/microsoft.svg';
 import AddCompanyModal from './AddCompanyToWatchList';
 
 const Watchlist = () => {
+    const apiKey = process.env.FINME_FMP_API_KEY;
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [stockList, setStockList] = useState([
-        {
-            companyIcon: amazonIcon,
-            companyName: 'Amazon.com, Inc',
-            companyAbbrev: 'AMZN',
-            stockPrice: '$102.24',
-            performancePercentage: '+3.02'
-        },
-        {
-            companyIcon: cocacolaIcon,
-            companyName: 'Coca-Cola Co',
-            companyAbbrev: 'KO',
-            stockPrice: '$60.49',
-            performancePercentage: '+0.32'
-        },
-        {
-            companyIcon: bmwIcon,
-            companyName: 'Bayerische Motoren Werke AG',
-            companyAbbrev: 'BMW',
-            stockPrice: '$92.94',
-            performancePercentage: '+0.59'
-        },
-        {
-            companyIcon: microsoftIcon,
-            companyName: 'Microsoft Corp',
-            companyAbbrev: 'MSFT',
-            stockPrice: '$248.16',
-            performancePercentage: '+0.16'
-        }
-    ]);
+    const [stockList, setStockList] = useState([]);
 
     const fetchCompanyData = async (companyName) => {
         try {
-            const response = await fetch(`/fetchCompanyData?companyName=${companyName}`);
-            const companyData = await response.json();
-
-            if (companyData) {
-                const newCompany = {
-                    companyIcon: '', // Add the appropriate icon
-                    companyName: companyData.name,
-                    companyAbbrev: companyData.symbol,
-                    stockPrice: `$${companyData.price}`,
-                    performancePercentage: `${companyData.change}%`
-                };
-
-                setStockList((prevList) => [...prevList, newCompany]);
+            const companyResponse = await fetch(`https://financialmodelingprep.com/api/v3/search?query=${companyName}&limit=1&exchange=NASDAQ&apikey=${apiKey}`);
+            const companyData = await companyResponse.json();
+ 
+            if (companyData && companyData.length > 0) {
+                const companySymbol = companyData[0].symbol;
+                const stockResponse = await fetch(`https://financialmodelingprep.com/api/v3/profile/${companySymbol}?apikey=${apiKey}`);
+                const stockData = await stockResponse.json();
+ 
+                if (stockData && stockData.length > 0) {
+                    const newCompany = {
+                        companyIcon: {microsoftIcon}, // Add the appropriate icon if available
+                        companyName: companyData[0].name,
+                        companyAbbrev: companyData[0].symbol,
+                        stockPrice: `$${stockData[0].price}`,
+                        performancePercentage: `${stockData[0].changes}%`
+                    };
+ 
+                    setStockList((prevList) => [...prevList, newCompany]);
+                }
             }
         } catch (error) {
-            console.error('Error fetching company data:', error);
+            res.status(404).send(`Error fetching company data: ${error}`);
         }
     };
 
@@ -67,7 +45,7 @@ const Watchlist = () => {
 
     return (
         <div className='relative w-[380px] h-[267px] bg-white rounded-lg overflow-scroll'>
-            <div className='inline-flex flex-row justify-evenly h-3.5  gap-1.5 p-2 pb-4'>
+            <div className='inline-flex flex-row h-3.5 justify-center gap-1.5 p-2 pb-4'>
                 <div className='relative w-fit mt-[4px] mb-[-2.18px] [font-family:"Everett-Medium", Helvetica] font-bold text-[#2c2c2c] text-lg text-center tracking-[0] leading-normal'>
                     Watchlist
                 </div>
