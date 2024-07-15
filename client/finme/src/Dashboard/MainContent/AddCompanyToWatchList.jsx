@@ -21,7 +21,6 @@ const AddCompanyToWatchlist = ({ isOpen, onClose, refreshWatchlist }) => {
     try {
       const companyResponse = await axios.get(`http://localhost:5000/api/company/${companyName}`);
       const companyData = companyResponse.data;
-      console.log(companyData)
 
       const response = await axios.post(`http://localhost:5000/api/add/${userId}`, {
         companyIcon: companyData.companyIcon,
