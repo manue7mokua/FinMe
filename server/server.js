@@ -6,7 +6,8 @@ const userRoutes = require('./routes/users.js');
 const accountRoutes = require('./routes/bankdetails.js');
 const incomeRoutes = require('./routes/incomes.js');
 const expenseRoutes = require('./routes/expenses.js');
-const stockData = require('./routes/stocksAPI/fetchCompanyStockData.js')
+const stockData = require('./routes/stocksAPI/fetchCompanyStockData.js');
+const watchlistRoutes = require('/routes/watchlist.js')
 
 const PORT = 5000;
 
@@ -27,5 +28,8 @@ app.use('/users', expenseRoutes);
 
 // Get stock data
 app.use('/api', stockData);
+
+// Add watchlist route
+app.use('/users', watchlistRoutes);
 
 app.listen(PORT);
