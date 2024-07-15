@@ -39,7 +39,7 @@ model Income {
   student Student @relation(fields: [studentId], references: [id])
   studentId Int
   incomeName String
-  incomeType Int
+  incomeType String
   incomeAmount Float
   incomeStartDate DateTime
   incomeEndDate DateTime
