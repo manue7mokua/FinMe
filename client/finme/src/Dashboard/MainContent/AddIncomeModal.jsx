@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const AddIncomeModal = ({ isOpen, onClose, refreshIncomes }) => {
   const [incomeName, setIncomeName] = useState('');
@@ -16,7 +16,7 @@ const AddIncomeModal = ({ isOpen, onClose, refreshIncomes }) => {
     setSuccess('');
 
     const token = localStorage.getItem('token');
-    const decoded = jwt_decode(token);
+    const decoded = jwtDecode(token);
     const userId = decoded.id;
 
     try {
