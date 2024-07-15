@@ -54,6 +54,7 @@ model Expense {
   accountId Int
   expenseType String
   expenseName String
+  expenseAmount Int
   expenseDescription String?
   expenseDate DateTime
   isRecurring Boolean @default(false)
