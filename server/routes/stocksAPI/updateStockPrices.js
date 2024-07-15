@@ -1,7 +1,7 @@
 const { PrismaClient } = require(('@prisma/client'));
 const prisma = new PrismaClient();
-import cron from 'node-cron';
-import axios from 'axios';
+const cron = require('node-cron');
+const axios = require('axios');
 
 const fetchStockData = async (companyAbbrev) => {
   const apiKey = process.env.FINME_FMP_API_KEY;

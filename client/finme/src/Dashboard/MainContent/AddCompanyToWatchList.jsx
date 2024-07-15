@@ -1,42 +1,74 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
-const AddCompanyModal = ({ isOpen, onClose, onAddCompany }) => {
-    const [companyName, setCompanyName] = useState('');
+const AddCompanyToWatchlist = ({ isOpen, onClose, refreshWatchlist }) => {
+  const [companyName, setCompanyName] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-    const handleAddCompany = async () => {
-        try {
-            await onAddCompany(companyName);
-            onClose();
-        } catch (error) {
-            console.error('Error adding company:', error);
+  const token = localStorage.getItem('token');
+  const decoded = jwtDecode(token);
+  const userId = decoded.id;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+
+    const token = localStorage.getItem('token');
+
+    try {
+      const companyResponse = await axios.get(`http://localhost:5000/api/company/${companyName}`);
+      const companyData = companyResponse.data;
+
+      const response = await axios.post(`http://localhost:5000/api/add/${userId}`, {
+        companyName: companyData.companyName,
+        companyAbbrev: companyData.companyAbbrev,
+        stockPrice: companyData.stockPrice
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
-    };
+      });
 
-    if (!isOpen) return null;
+      if (response.status === 200) {
+        setSuccess('Company added to watchlist');
+        refreshWatchlist();
+        onClose();
+      } else {
+        setError('Failed to add company');
+      }
+    } catch (err) {
+      setError('Failed to add company');
+      console.error('Error adding company:', err);
+    }
+  };
 
-    return (
-        <div className='fixed inset-0 z-50 flex items-center justify-center'>
-            <div className='absolute inset-0 bg-black opacity-75'></div>
-            <div className='relative bg-white p-4 rounded-lg z-50'>
-                <h2 className='text-xl mb-4'>Add New Company</h2>
-                <input
-                    type='text'
-                    value={companyName}
-                    onChange={(e) => setCompanyName(e.target.value)}
-                    className='border p-2 w-full mb-4'
-                    placeholder='Enter company name'
-                />
-                <div className='flex justify-end'>
-                    <button onClick={handleAddCompany} className='bg-blue-500 text-white p-2 rounded mr-2'>
-                        Add Company
-                    </button>
-                    <button onClick={onClose} className='text-gray-500'>
-                        Cancel
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-4">Add New Company</h2>
+        {error && <p className="text-red-500">{error}</p>}
+        {success && <p className="text-green-500">{success}</p>}
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Company Name"
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+            className="w-full p-2 border rounded-lg mb-2"
+            required
+          />
+          <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-lg">Add Company</button>
+        </form>
+        <button onClick={onClose} className="w-full p-2 bg-red-500 text-white rounded-lg mt-2">Close</button>
+      </div>
+    </div>
+  );
 };
 
-export default AddCompanyModal;
+export default AddCompanyToWatchlist;
+

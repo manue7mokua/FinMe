@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const { PrismaClient } = require(('@prisma/client'));
+const prisma = new PrismaClient();
 
 router.get('/company/:companyName', async (req, res) => {
   const companyName = req.params.companyName;
@@ -40,5 +42,27 @@ router.get('/company/:companyName', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+router.post('/add/:userId', async (req, res) => {
+  const { companyName, companyAbbrev, stockPrice } = req.body;
+  const studentId = parseInt(req.params.userId);
+
+  try {
+    const newWatchlistItem = await prisma.watchlist.create({
+      data: {
+        studentId,
+        companyName,
+        companyAbbrev,
+        stockPrice
+      }
+    });
+
+    res.status(200).json(newWatchlistItem);
+  } catch (error) {
+    console.error('Error adding company to watchlist:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 module.exports = router;
