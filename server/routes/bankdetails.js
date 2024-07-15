@@ -27,7 +27,6 @@ router.post('/:id/addAccount', auth, async(req, res) => {
         const setCardExpiryDate = (year, month) => {
             const lastDay = lastDayofMonth(expiryYear, expiryMonth);
             const expiryDate = new Date(year, month - 1, lastDay);
-
             return expiryDate.toISOString();
         }
 
@@ -63,8 +62,6 @@ router.get('/:id/accountInfo', async (req, res) => {
     } catch (err) {
         return res.status(500).send('Server error!')
     }
-
-
     return res.json(bankAccounts);
 })
 
