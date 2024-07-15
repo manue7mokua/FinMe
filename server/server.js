@@ -30,6 +30,6 @@ app.use('/users', expenseRoutes);
 app.use('/api', stockData);
 
 // Add watchlist route
-app.use('/users', watchlistRoutes);
+app.use('/watchlist', watchlistRoutes);
 
 app.listen(PORT);
