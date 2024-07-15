@@ -63,7 +63,9 @@ model Watchlist {
   id Int @id @default(autoincrement())
   student Student @relation(fields: [studentId], references: [id])
   studentId Int
+  companyIcon String
   companyName   String
   companyAbbrev String
   stockPrice String
+  performancePercentage String
 }

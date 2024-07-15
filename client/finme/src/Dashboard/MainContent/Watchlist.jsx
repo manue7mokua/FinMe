@@ -1,30 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import plusIcon from '../../assets/addicon.svg';
 import StockListItem from './StockListItem';
-import AddCompanyModal from './AddCompanyToWatchList';
+import AddCompanyToWatchlist from './AddCompanyToWatchList';
+import { jwtDecode } from 'jwt-decode';
 
 const Watchlist = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [stockList, setStockList] = useState([]);
 
-  const fetchCompanyData = async (companyName) => {
-    try {
-      const response = await fetch(`http://localhost:5000/api/company/${companyName}`);
-      const data = await response.json();
+  const fetchWatchlist = async () => {
+    const token = localStorage.getItem('token');
+    const decoded = jwtDecode(token);
+    const userId = decoded.id;
 
-      if (response.ok) {
-        setStockList((prevList) => [...prevList, data]);
+    try {
+      const response = await axios.get(`http://localhost:5000/api/watchlist/${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.status === 200) {
+        setStockList(response.data);
       } else {
-        console.error(`Error fetching company data: ${data.message}`);
+        console.error(`Error fetching watchlist: ${response.data.message}`);
       }
     } catch (error) {
-      console.error(`Error fetching company data: ${error}`);
+      console.error(`Error fetching watchlist: ${error}`);
     }
   };
 
-  const handleAddCompany = (companyName) => {
-    fetchCompanyData(companyName);
-  };
+  useEffect(() => {
+    fetchWatchlist();
+  }, []);
 
   return (
     <div className='relative w-[380px] h-[267px] bg-white rounded-lg overflow-scroll'>
@@ -43,18 +52,19 @@ const Watchlist = () => {
             companyIcon={stock.companyIcon}
             companyName={stock.companyName}
             companyAbbrev={stock.companyAbbrev}
-            stockPrice={stock.stockPrice}
-            performancePercentage={stock.performancePercentage}
+            stockPrice={`${stock.stockPrice}`}
+            performancePercentage={`${stock.performancePercentage}`}
           />
         ))}
       </div>
-      <AddCompanyModal
+      <AddCompanyToWatchlist
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onAddCompany={handleAddCompany}
+        refreshWatchlist={fetchWatchlist}
       />
     </div>
   );
 };
 
 export default Watchlist;
+

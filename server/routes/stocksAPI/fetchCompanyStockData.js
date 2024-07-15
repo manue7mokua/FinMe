@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require(('@prisma/client'));
 const prisma = new PrismaClient();
+const auth = require('../../middleware/auth.js');
 
 router.get('/company/:companyName', async (req, res) => {
   const companyName = req.params.companyName;
@@ -44,16 +45,18 @@ router.get('/company/:companyName', async (req, res) => {
 });
 
 router.post('/add/:userId', async (req, res) => {
-  const { companyName, companyAbbrev, stockPrice } = req.body;
+  const { companyIcon, companyName, companyAbbrev, stockPrice, performancePercentage } = req.body;
   const studentId = parseInt(req.params.userId);
 
   try {
     const newWatchlistItem = await prisma.watchlist.create({
       data: {
         studentId,
+        companyIcon,
         companyName,
         companyAbbrev,
-        stockPrice
+        stockPrice,
+        performancePercentage
       }
     });
 
@@ -64,5 +67,18 @@ router.post('/add/:userId', async (req, res) => {
   }
 });
 
+router.get('/watchlist/:userId', async (req, res) => {
+  const studentId = parseInt(req.params.userId);
+
+  try {
+    const watchlistItems = await prisma.watchlist.findMany({
+      where: { studentId }
+    });
+    res.status(200).json(watchlistItems);
+  } catch (error) {
+    console.error('Error fetching watchlist:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 module.exports = router;
