@@ -23,8 +23,8 @@ const AddIncomeModal = ({ isOpen, onClose, refreshIncomes }) => {
     try {
       const response = await axios.post(`http://localhost:5000/users/${userId}/addIncome`, {
         incomeName,
-        incomeType,
-        incomeAmount,
+        incomeType: parseInt(incomeType),
+        incomeAmount: parseInt(incomeAmount),
         startDate,
         endDate
       }, {
@@ -63,7 +63,7 @@ const AddIncomeModal = ({ isOpen, onClose, refreshIncomes }) => {
             required
           />
           <input
-            type="text"
+            type="number"
             placeholder="Income Type"
             value={incomeType}
             onChange={(e) => setIncomeType(e.target.value)}
