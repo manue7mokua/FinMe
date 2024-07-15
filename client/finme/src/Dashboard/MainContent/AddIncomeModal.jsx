@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 
 const AddIncomeModal = ({ isOpen, onClose, refreshIncomes }) => {
   const [incomeName, setIncomeName] = useState('');
+  const [incomeType, setIncomeType] = useState('');
   const [incomeAmount, setIncomeAmount] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -22,6 +23,7 @@ const AddIncomeModal = ({ isOpen, onClose, refreshIncomes }) => {
     try {
       const response = await axios.post(`http://localhost:5000/users/${userId}/addIncome`, {
         incomeName,
+        incomeType,
         incomeAmount,
         startDate,
         endDate
@@ -57,6 +59,14 @@ const AddIncomeModal = ({ isOpen, onClose, refreshIncomes }) => {
             placeholder="Income Name"
             value={incomeName}
             onChange={(e) => setIncomeName(e.target.value)}
+            className="w-full p-2 border rounded-lg mb-2"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Income Type"
+            value={incomeType}
+            onChange={(e) => setIncomeType(e.target.value)}
             className="w-full p-2 border rounded-lg mb-2"
             required
           />
