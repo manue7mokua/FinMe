@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
-var cors = require('cors');
+const cors = require('cors');
+require('dotenv').config();
 const userRoutes = require('./routes/users.js');
 const accountRoutes = require('./routes/bankdetails.js');
 const incomeRoutes = require('./routes/incomes.js');
 const expenseRoutes = require('./routes/expenses.js');
+const stockData = require('./routes/stocksAPI/fetchCompanyStockData.js')
 
 const PORT = 5000;
 
@@ -22,5 +24,8 @@ app.use('/users/', incomeRoutes);
 
 // Use expenses routes
 app.use('/users', expenseRoutes);
+
+// Get stock data
+app.use('/api', stockData);
 
 app.listen(PORT);
