@@ -17,9 +17,6 @@ const NavigationLinks = () => {
           <Link to='/incomes'>Incomes</Link>
         </div>
         <div className='opacity-50 text-white text-[25px] font-semibold font-["Poppins"] leading-[35px] mb-4'>
-          <Link to='/plan'>Plan</Link>
-        </div>
-        <div className='opacity-50 text-white text-[25px] font-semibold font-["Poppins"] leading-[35px] mb-4'>
           <Link to='/settings'>Settings</Link>
         </div>
     </nav>
