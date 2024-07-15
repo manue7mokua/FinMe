@@ -2,6 +2,7 @@ import React from 'react';
 
 const IncomeListItem = ({
   incomeName,
+  incomeType,
   incomeDateRange,
   incomeAmount,
   incomeCurrencyDenomination
@@ -17,6 +18,9 @@ const IncomeListItem = ({
               </div>
               <div className="absolute w-[200px] top-2.5 left-[105px] [font-family:'Inter-Medium',Helvetica] font-medium text-fontsprimary text-sm tracking-[0] leading-[normal]">
                 {incomeName}
+              </div>
+              <div className="absolute w-[200px] top-2.5 left-[305px] [font-family:'Inter-Medium',Helvetica] font-medium text-fontsprimary text-sm tracking-[0] leading-[normal]">
+              {incomeType}
               </div>
               <div className="absolute w-[200px] top-8 left-[105px] [font-family:'Inter-Regular',Helvetica] font-normal text-fontsprimary-variant text-sm tracking-[0.70px] leading-[normal]">
                 {incomeDateRange}
