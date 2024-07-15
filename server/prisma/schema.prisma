@@ -65,4 +65,5 @@ model Watchlist {
   studentId Int
   companyName   String
   companyAbbrev String
+  stockPrice Int
 }

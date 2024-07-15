@@ -1,8 +1,8 @@
-import express from 'express';
-import { PrismaClient } from '@prisma/client';
-import auth from '../middleware/auth.js';
-
+const express = require('express');
+const { PrismaClient } = require(('@prisma/client'));
 const prisma = new PrismaClient();
+const auth = require('../middleware/auth.js');
+
 const router = express.Router();
 
 router.post('/add', auth, async (req, res) => {
@@ -25,4 +25,4 @@ router.post('/add', auth, async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
