@@ -1,12 +1,13 @@
 const { PrismaClient } = require(('@prisma/client'));
 const prisma = new PrismaClient();
 var cors = require('cors');
+const auth = require('../middleware/auth');
 
 const express = require('express');
 const router = express.Router();
 
 // Route to add bank account to database
-router.post('/:id/addAccount', async(req, res) => {
+router.post('/:id/addAccount', auth, async(req, res) => {
     const { accountNumber, accountName, cardExpiresOn } = req.body;
     // Get userid from url
     const studentId = parseInt(req.params.id);
