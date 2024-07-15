@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import IncomeListItem from './IncomeListItem';
 import AddIncomeModal from './AddIncomeModal';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const IncomesSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -9,7 +10,7 @@ const IncomesSection = () => {
 
   const refreshIncomes = async () => {
     const token = localStorage.getItem('token');
-    const decoded = jwt_decode(token);
+    const decoded = jwtDecode(token);
     const userId = decoded.id;
 
     try {
