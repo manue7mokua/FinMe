@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import FormInput from './FormInput';
 import axios from 'axios';
 
@@ -9,6 +10,7 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +18,7 @@ const SignUpForm = () => {
     setSuccess('');
 
     try {
-      const response = await axios.post('http://localhost:3000/users/signup', { firstName, lastName, email, password });
+      const response = await axios.post('http://localhost:5000/users/signup', { firstName, lastName, email, password });
       const data = response.data;
 
       // Store token in local storage
@@ -26,6 +28,8 @@ const SignUpForm = () => {
       setSuccess(`Welcome ${firstName} :)`);
       setError('');
 
+      // Redirect to dashboard
+      navigate('/dashboard');
     } catch (err) {
       setError('Sign-up failed');
       console.error('Sign-up failed', err);
@@ -82,3 +86,4 @@ const SignUpForm = () => {
 };
 
 export default SignUpForm;
+
