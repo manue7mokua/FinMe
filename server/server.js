@@ -8,6 +8,7 @@ const incomeRoutes = require('./routes/incomes.js');
 const expenseRoutes = require('./routes/expenses.js');
 const stockData = require('./routes/stocksAPI/fetchCompanyStockData.js');
 const watchlistRoutes = require('./routes/watchlist.js')
+import './routes/stocksAPI/updateStockPrices.js';
 
 const PORT = 5000;
 
