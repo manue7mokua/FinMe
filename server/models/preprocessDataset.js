@@ -16,7 +16,7 @@ const preprocessDataset = () => {
   
     Object.keys(dataset).forEach((category, categoryIndex) => {
       dataset[category].forEach(word => {
-        const preprocessedWord = preprocess(word);
+        const preprocessedWord = preprocessor(word);
         const featureVector = Array(categories.length).fill(0);
   
         preprocessedWord.forEach(stemmedWord => {
@@ -34,3 +34,5 @@ const preprocessDataset = () => {
   
     return { features, labels, categories };
   }
+
+  module.exports = preprocessDataset;
