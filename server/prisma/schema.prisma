@@ -31,6 +31,7 @@ model Account {
   studentId Int
   accountNumber String
   accountName String
+  accountBalance Float
   cardExpiryDate DateTime
   expenses Expense[]
 }
@@ -54,7 +55,7 @@ model Expense {
   accountId Int
   expenseType String
   expenseName String
-  expenseAmount Int
+  expenseAmount Float
   expenseDescription String?
   expenseDate DateTime
   isRecurring Boolean @default(false)
