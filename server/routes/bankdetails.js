@@ -1,51 +1,41 @@
 const { PrismaClient } = require(('@prisma/client'));
 const prisma = new PrismaClient();
 var cors = require('cors');
+const auth = require('../middleware/auth.js');
 
 const express = require('express');
 const router = express.Router();
 
 // Route to add bank account to database
 router.post('/:id/addAccount', async(req, res) => {
-    const { accountNumber, accountName, cardExpiresOn } = req.body;
+    const { accountNumber, accountName, accountBalance, cardExpiresOn } = req.body;
+    console.log(req.body)
     // Get userid from url
     const studentId = parseInt(req.params.id);
 
-    // Extract year from expiry date
-    let expiryYear = cardExpiresOn.split(' ')[0];
+    const getCardExpiryDate = (cardExpiresOn) => {
+        let expiryYear = parseInt(cardExpiresOn.split(' ')[0]);
+        let expiryMonth = parseInt(cardExpiresOn.split(' ')[1]);
+        const expiryDate = new Date(expiryYear, expiryMonth - 1, 1);
+        return expiryDate;
+    }
 
-    // Extract month from expiry date
-    let expiryMonth = cardExpiresOn.split(' ')[1];
+    const cardExpiryDate = getCardExpiryDate(cardExpiresOn);
 
     try {
-         // Get the last day of month
-        const lastDayofMonth = (year, month) => {
-            return new Date(year, month, 0).getDate();
-        }
-
-        const setCardExpiryDate = (year, month) => {
-            const lastDay = lastDayofMonth(expiryYear, expiryMonth);
-            const expiryDate = new Date(year, month - 1, lastDay);
-
-            return expiryDate.toISOString();
-        }
-
-        const cardExpiryDate = setCardExpiryDate(expiryYear, expiryMonth);
 
         await prisma.account.create({
             data: {
                 studentId,
                 accountNumber,
                 accountName,
+                accountBalance: parseInt(accountBalance),
                 cardExpiryDate
             }
         })
     } catch(err) {
         res.status(500).send('Server error!');
-    }
-
-    // Return json of newly added card data
-    res.status(200).send('Great! New card added!');
+    };
 })
 
 // Route to get all account info details
@@ -59,12 +49,10 @@ router.get('/:id/accountInfo', async (req, res) => {
                 studentId
             }
         });
+        res.json(bankAccounts)
     } catch (err) {
         return res.status(500).send('Server error!')
     }
-
-
-    return res.json(bankAccounts);
 })
 
 // Route to update bank account details

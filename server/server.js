@@ -17,7 +17,7 @@ app.use(express.json({ extended: false }));
 app.use('/users', userRoutes);
 
 // Use account routes
-app.use('/users', accountRoutes);
+app.use('/accounts', accountRoutes);
 
 // Use income routes
 app.use('/users/', incomeRoutes);

@@ -7,7 +7,7 @@ const AddExpenseModal = ({ isOpen, onClose, refreshExpenses }) => {
   const [expenseDescription, setExpenseDescription] = useState('');
   const [dateofExpense, setDateofExpense] = useState('');
   const [isRecurring, setIsRecurring] = useState(false);
-  const [bankAccount, setBankAccount] = useState('');
+  const [bankAccountName, setBankAccountName] = useState('');
   const [expenseAmount, setExpenseAmount] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -24,11 +24,11 @@ const AddExpenseModal = ({ isOpen, onClose, refreshExpenses }) => {
       const response = await axios.post(`http://localhost:5000/users/${userId}/addExpense`, {
         expenseType,
         expenseName,
+        expenseAmount,
         expenseDescription,
         dateofExpense,
         isRecurring,
-        accountId: bankAccount,
-        expenseAmount
+        bankAccountName,
       }, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -91,7 +91,7 @@ const AddExpenseModal = ({ isOpen, onClose, refreshExpenses }) => {
             type="text"
             placeholder="Bank Account Name"
             value={bankAccountName}
-            onChange={(e) => setBankAccount(e.target.value)}
+            onChange={(e) => setBankAccountName(e.target.value)}
             className="w-full p-2 border rounded-lg mb-2"
             required
           />
