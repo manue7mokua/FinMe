@@ -29,7 +29,9 @@ class LinearRegression {
       return features.map(feature => this.predictSingle(feature));
     }
   
-    
+    predictSingle(feature) {
+      return feature.reduce((sum, value, index) => sum + value * this.weights[index], 0);
+    }
   }
   
 module.exports = LinearRegression;
