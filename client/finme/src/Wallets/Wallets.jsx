@@ -20,6 +20,7 @@ const Wallets = () => {
       });
 
       if (response.status === 200) {
+        console.log(response.data)
         setAccounts(response.data);
       } else {
         console.error(`Error fetching accounts: ${response.data.message}`);
