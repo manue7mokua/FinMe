@@ -25,6 +25,11 @@ class LinearRegression {
       }
     }
   
+    predict(features) {
+      return features.map(feature => this.predictSingle(feature));
+    }
+  
+    
   }
   
 module.exports = LinearRegression;
