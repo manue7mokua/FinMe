@@ -1,4 +1,4 @@
-class LinearRegression {
+export default class LinearRegression {
     constructor() {
       this.weights = null;
     }
@@ -34,5 +34,5 @@ class LinearRegression {
     }
   }
   
-module.exports = LinearRegression;
+
   

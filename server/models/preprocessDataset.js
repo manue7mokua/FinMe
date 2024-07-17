@@ -1,7 +1,7 @@
-const preprocessor = require('./preprocessor');
-const dataset = require('../data/dataset.json');
+import preprocess from './preprocessor';
+import dataset from '../data/trainingDataset';
 
-const preprocessDataset = () => {
+export default function preprocessDataset() {
     const categories = ["Food", "Entertainment", "Transport", "Bills", "Personal"];
     const wordToCategory = {};
   
@@ -15,15 +15,15 @@ const preprocessDataset = () => {
     const labels = [];
   
     Object.keys(dataset).forEach((category, categoryIndex) => {
-      dataset[category].forEach(word => {
-        const preprocessedWord = preprocessor(word);
+      dataset[category].forEach(text => {
+        const preprocessedText = preprocess(text);
         const featureVector = Array(categories.length).fill(0);
   
-        preprocessedWord.forEach(stemmedWord => {
+        preprocessedText.forEach(stemmedWord => {
           const wordCategory = wordToCategory[stemmedWord];
           if (wordCategory) {
             const index = categories.indexOf(wordCategory);
-            featureVector[index] = 1;
+            featureVector[index] += 1;
           }
         });
   
@@ -31,8 +31,6 @@ const preprocessDataset = () => {
         labels.push(categoryIndex);
       });
     });
-  
+    
     return { features, labels, categories };
   }
-
-  module.exports = preprocessDataset;

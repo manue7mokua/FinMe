@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import preprocess from '../../../../server/models/preprocessor';
+import { createFeatureVector } from '../../../../server/models/featureVectorExtractor';
+import trainModel from '../../../../server/models/trainModel';
+import preprocessDataset from '../../../../server/models/preprocessDataset';
 
 const AddExpenseModal = ({ isOpen, onClose, refreshExpenses }) => {
-  const [expenseType, setExpenseType] = useState('');
+  const [expenseCategory, setExpenseCategory] = useState('');
   const [expenseName, setExpenseName] = useState('');
   const [expenseDescription, setExpenseDescription] = useState('');
   const [dateofExpense, setDateofExpense] = useState('');
@@ -11,6 +15,15 @@ const AddExpenseModal = ({ isOpen, onClose, refreshExpenses }) => {
   const [expenseAmount, setExpenseAmount] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [model, setModel] = useState(null);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const { features, labels, categories } = preprocessDataset();
+    const trainedModel = trainModel(features, labels);
+    setModel(trainedModel);
+    setCategories(categories);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,9 +33,21 @@ const AddExpenseModal = ({ isOpen, onClose, refreshExpenses }) => {
     const token = localStorage.getItem('token');
     const userId = JSON.parse(atob(token.split('.')[1])).id; // Decoding JWT to get user ID
 
+    // Predict the expense category
+    if (model) {
+      const preprocessedInput = preprocess(expenseDescription);
+      const featureVector = createFeatureVector(preprocessedInput);
+      const predictedCategoryIndex = model.predict([featureVector])[0];
+      const predictedCategory = categories[Math.round(predictedCategoryIndex)];
+      setExpenseCategory(predictedCategory);
+
+      console.log(predictedCategory);
+    }
+
+
     try {
       const response = await axios.post(`http://localhost:5000/users/${userId}/addExpense`, {
-        expenseType,
+        expenseType: expenseCategory,
         expenseName,
         expenseAmount,
         expenseDescription,
@@ -57,14 +82,6 @@ const AddExpenseModal = ({ isOpen, onClose, refreshExpenses }) => {
         {error && <p className="text-red-500">{error}</p>}
         {success && <p className="text-green-500">{success}</p>}
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Expense Type"
-            value={expenseType}
-            onChange={(e) => setExpenseType(e.target.value)}
-            className="w-full p-2 border rounded-lg mb-2"
-            required
-          />
           <input
             type="text"
             placeholder="Expense Name"

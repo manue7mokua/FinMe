@@ -1,11 +1,9 @@
-const LinearRegression = require('./linearRegression');
-const preprocessDataset = require('./preprocessDataset');
+import LinearRegression from './linearRegression';
+import preprocessDataset from './preprocessDataset';
 
-const trainModel = () => {
+export default function trainModel() {
     const { features, labels } = preprocessDataset();
     const model = new LinearRegression();
     model.train(features, labels);
     return model;
   }
-
-module.exports = trainModel;
