@@ -1,4 +1,4 @@
-import LinearRegression from './linearRegression';
+import LinearRegression from './regressionModel';
 import preprocessDataset from './preprocessDataset';
 
 export default function trainModel() {

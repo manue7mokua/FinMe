@@ -1,9 +1,9 @@
-import dataset from '../data/trainingDataset';
+import bagOfWords from '../data/trainingDataset';
 
 // Create a word-to-category mapping
 const wordToCategory = {};
-Object.keys(dataset).forEach(category => {
-  dataset[category].forEach(word => {
+Object.keys(bagOfWords).forEach(category => {
+  bagOfWords[category].forEach(word => {
     wordToCategory[word] = category;
   });
 });

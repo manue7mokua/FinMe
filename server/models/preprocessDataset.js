@@ -1,12 +1,12 @@
 import preprocess from './preprocessor';
-import dataset from '../data/trainingDataset';
+import { bagOfWords, trainingDataset } from '../data/trainingDataset';
 
 export default function preprocessDataset() {
     const categories = ["Food", "Entertainment", "Transport", "Bills", "Personal"];
     const wordToCategory = {};
   
-    Object.keys(dataset).forEach(category => {
-      dataset[category].forEach(word => {
+    Object.keys(bagOfWords).forEach(category => {
+      bagOfWords[category].forEach(word => {
         wordToCategory[word] = category;
       });
     });
