@@ -17,7 +17,7 @@ Object.keys(bagOfWords).forEach(category => {
     const category = wordToCategory[word];
     if (category) {
       const index = categories.indexOf(category);
-      featureVector[index] = 1;
+      featureVector[index] += 1;
     }
   });
 
