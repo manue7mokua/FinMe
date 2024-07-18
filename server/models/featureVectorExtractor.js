@@ -1,4 +1,4 @@
-import bagOfWords from '../data/trainingDataset';
+import { bagOfWords } from '../data/trainingDataset';
 
 // Create a word-to-category mapping
 const wordToCategory = {};

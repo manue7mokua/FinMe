@@ -150,4 +150,4 @@ const trainingDataset = {
 };
 
 
-export default { bagOfWords, trainingDataset };
+export { bagOfWords, trainingDataset };
