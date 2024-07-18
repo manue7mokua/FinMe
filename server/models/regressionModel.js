@@ -7,11 +7,11 @@ export default class LinearRegression {
       const learningRate = 0.01;
       const epochs = 1000;
       const numFeatures = features[0].length;
-      const numSamples = features.length;
+      const numClasses = labels[0].length;
   
       // Initialize weights
-      this.weights = Array(numFeatures).fill(0);
-  
+      this.weights = Array.from({ length: numClasses }, () => Array(numFeatures).fill(0).map(() => Math.random() * 0.01));
+
       for (let epoch = 0; epoch < epochs; epoch++) {
         for (let i = 0; i < numSamples; i++) {
           const prediction = this.predictSingle(features[i]);
