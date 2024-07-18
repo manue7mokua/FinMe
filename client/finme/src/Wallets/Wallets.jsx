@@ -20,7 +20,6 @@ const Wallets = () => {
       });
 
       if (response.status === 200) {
-        console.log(response.data)
         setAccounts(response.data);
       } else {
         console.error(`Error fetching accounts: ${response.data.message}`);
@@ -43,7 +42,7 @@ const Wallets = () => {
             <CreateCard
               key={index}
               bankAccountName={account.accountName}
-              bankAccountBalance='$0.00' // Assuming balance is not available yet
+              bankAccountBalance={`$${account.accountBalance}`} 
               bankAccountType='Checking Account' // Assuming all are checking accounts for simplicity
               bankCardNumber={`**** **** **** ${account.accountNumber.slice(-4)}`}
             />

@@ -4,6 +4,7 @@ import axios from 'axios';
 const AddBankAccountModal = ({ isOpen, onClose, refreshAccounts }) => {
   const [accountNumber, setAccountNumber] = useState('');
   const [accountName, setAccountName] = useState('');
+  const [accountBalance, setAccountBalance] = useState('');
   const [cardExpiresOn, setCardExpiresOn] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -20,6 +21,7 @@ const AddBankAccountModal = ({ isOpen, onClose, refreshAccounts }) => {
       const response = await axios.post(`http://localhost:5000/accounts/${userId}/addAccount`, {
         accountNumber,
         accountName,
+        accountBalance,
         cardExpiresOn
       }, {
         headers: {
@@ -62,6 +64,14 @@ const AddBankAccountModal = ({ isOpen, onClose, refreshAccounts }) => {
             placeholder="Account Name"
             value={accountName}
             onChange={(e) => setAccountName(e.target.value)}
+            className="w-full p-2 border rounded-lg mb-2"
+            required
+          />
+          <input
+            type="number"
+            placeholder="Account Balance"
+            value={accountBalance}
+            onChange={(e) => setAccountBalance(e.target.value)}
             className="w-full p-2 border rounded-lg mb-2"
             required
           />
