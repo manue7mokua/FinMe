@@ -1,4 +1,4 @@
-export default class LinearRegression {
+export default class MultinomialLogisticRegression {
     constructor() {
       this.weights = null;
     }
@@ -13,13 +13,15 @@ export default class LinearRegression {
       this.weights = Array.from({ length: numClasses }, () => Array(numFeatures).fill(0).map(() => Math.random() * 0.01));
 
       for (let epoch = 0; epoch < epochs; epoch++) {
-        for (let i = 0; i < numSamples; i++) {
+        for (let i = 0; i < features.length; i++) {
           const prediction = this.predictSingle(features[i]);
-          const error = labels[i] - prediction;
+          const error = labels[i].map((y, k) => y - prediction[k]);
   
           // Update weights
-          for (let j = 0; j < numFeatures; j++) {
-            this.weights[j] += learningRate * error * features[i][j];
+          for (let k = 0; j < numClasses; k++) {
+            for (let j = 0; j < numFeatures; j++) {
+              this.weights[k][j] += learningRate * error[k] * features[i][j];
+            }
           }
         }
       }
@@ -28,9 +30,11 @@ export default class LinearRegression {
     predict(features) {
       return features.map(feature => this.predictSingle(feature));
     }
-  
+
     predictSingle(feature) {
-      return feature.reduce((sum, value, index) => sum + value * this.weights[index], 0);
+      const z = feature.reduce((sum, x_j, j) => sum + x_j * this.weights[j], 0);
+      // Sigmoid function to predict probability
+      return 1 / (1 + Math.exp(-z));
     }
   }
   

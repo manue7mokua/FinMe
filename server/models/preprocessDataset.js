@@ -15,6 +15,7 @@ export default function preprocessDataset() {
     const labels = [];
   
     Object.keys(trainingDataset).forEach((category, categoryIndex) => {
+        // define labels category
       trainingDataset[category].forEach(text => {
         const preprocessedText = preprocess(text);
         const featureVector = Array(categories.length).fill(0);
@@ -28,12 +29,14 @@ export default function preprocessDataset() {
         });
   
         features.push(featureVector);
+        // push number to labels ategory
         
-        // Create binary labels for each category
+      });
+      // Create binary labels for each category
+      // append labels categor to labels
         const label = Array(categories.length).fill(0);
         label[categoryIndex] = 1;
         labels.push(label);
-      });
     });
     
     return { features, labels, categories };
