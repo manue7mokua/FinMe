@@ -18,7 +18,7 @@ export default class MultinomialLogisticRegression {
           const error = labels[i].map((y, k) => y - prediction[k]);
   
           // Update weights
-          for (let k = 0; j < numClasses; k++) {
+          for (let k = 0; k < numClasses; k++) {
             for (let j = 0; j < numFeatures; j++) {
               this.weights[k][j] += learningRate * error[k] * features[i][j];
             }
@@ -32,10 +32,11 @@ export default class MultinomialLogisticRegression {
     }
 
     predictSingle(feature) {
-      const z = feature.reduce((sum, x_j, j) => sum + x_j * this.weights[j], 0);
-      // Sigmoid function to predict probability
-      return 1 / (1 + Math.exp(-z));
-    }
+      const z = this.weights.map(weightsForClass => feature.reduce((sum, x_j, j) => sum + x_j * weightsForClass[j], 0));
+      const expZ = z.map(Math.exp);
+      const sumExpZ = expZ.reduce((sum, value) => sum + value, 0);
+      return expZ.map(value => value / sumExpZ);
+    }    
   }
   
 
