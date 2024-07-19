@@ -1,25 +1,25 @@
-import preprocess from './preprocessor';
-import { bagOfWords, trainingDataset } from '../data/trainingDataset';
+const preprocess = require('./preprocessor')
+const { bagOfWords, trainingDataset } = require('../data/trainingDataset')
 
-export default function preprocessDataset() {
+const preprocessDataset = () => {
     const categories = ["Food", "Entertainment", "Transport", "Bills", "Personal"];
     const wordToCategory = {};
-  
+
     Object.keys(bagOfWords).forEach(category => {
       bagOfWords[category].forEach(word => {
         wordToCategory[word] = category;
       });
     });
-  
+
     const features = [];
     const labels = [];
-  
+    const label = [];
+
     Object.keys(trainingDataset).forEach((category, categoryIndex) => {
-        // define labels category
       trainingDataset[category].forEach(text => {
         const preprocessedText = preprocess(text);
         const featureVector = Array(categories.length).fill(0);
-  
+
         preprocessedText.forEach(stemmedWord => {
           const wordCategory = wordToCategory[stemmedWord];
           if (wordCategory) {
@@ -27,17 +27,16 @@ export default function preprocessDataset() {
             featureVector[index] += 1;
           }
         });
-  
+
         features.push(featureVector);
-        // push number to labels ategory
-        
+        const labelIndex = categories.indexOf(category)
+        label.push(labelIndex)
       });
-      // Create binary labels for each category
-      // append labels categor to labels
-        const label = Array(categories.length).fill(0);
-        label[categoryIndex] = 1;
-        labels.push(label);
+
+      labels.push(label); 
     });
-    
+
     return { features, labels, categories };
-  }
+}
+
+module.exports = preprocessDataset

@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import preprocess from '../../../../server/models/preprocessor';
-import { createFeatureVector } from '../../../../server/models/featureVectorExtractor';
-import trainModel from '../../../../server/models/trainModel';
-import preprocessDataset from '../../../../server/models/preprocessDataset';
 
 const AddExpenseModal = ({ isOpen, onClose, refreshExpenses }) => {
   const [expenseCategory, setExpenseCategory] = useState('');
@@ -15,15 +11,16 @@ const AddExpenseModal = ({ isOpen, onClose, refreshExpenses }) => {
   const [expenseAmount, setExpenseAmount] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [model, setModel] = useState(null);
-  const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    const { features, labels, categories } = preprocessDataset();
-    const trainedModel = trainModel(features, labels);
-    setModel(trainedModel);
-    setCategories(categories);
-  }, []);
+  const predictCategory = async (description ) => {
+    try {
+      const response = await axios.post('http://localhost:3000/training/predictCategory', { description });
+      return response.data.category;
+    } catch (err) {
+      console.error('Error predicting category:', err);
+      return '';
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,29 +28,28 @@ const AddExpenseModal = ({ isOpen, onClose, refreshExpenses }) => {
     setSuccess('');
 
     const token = localStorage.getItem('token');
-    const userId = JSON.parse(atob(token.split('.')[1])).id; // Decoding JWT to get user ID
+    // Decoding JWT to get user ID
+    const userId = JSON.parse(atob(token.split('.')[1])).id;
 
-    // Predict the expense category
-    if (model) {
-      const preprocessedInput = preprocess(expenseDescription);
-      const featureVector = createFeatureVector(preprocessedInput);
-      const predictedCategoryIndex = model.predict([featureVector])[0];
-      const predictedCategory = categories[Math.round(predictedCategoryIndex)];
-      setExpenseCategory(predictedCategory);
-
-      console.log(predictedCategory);
+    if (!expenseDescription) {
+      setError('Expense description is required');
+      return;
     }
 
+    // Predict the expense category
+    const predictedCategory = await predictCategory(expenseDescription);
+    setExpenseCategory(predictedCategory);
 
     try {
-      const response = await axios.post(`http://localhost:5000/users/${userId}/addExpense`, {
-        expenseType: expenseCategory,
+      const response = await axios.post(`http://localhost:5000/expenses/${userId}/addExpense`, {
+        expenseType: predictedCategory,
         expenseName,
         expenseAmount,
         expenseDescription,
         dateofExpense,
         isRecurring,
         bankAccountName,
+        userId
       }, {
         headers: {
           'Authorization': `Bearer ${token}`

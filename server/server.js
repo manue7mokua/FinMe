@@ -12,7 +12,6 @@ const PORT = 5000;
 app.use(cors())
 app.use(express.json({ extended: false }));
 
-
 // Use user routes
 app.use('/users', userRoutes);
 
@@ -23,7 +22,7 @@ app.use('/accounts', accountRoutes);
 app.use('/users/', incomeRoutes);
 
 // Use expenses routes
-app.use('/users', expenseRoutes);
+app.use('/expenses', expenseRoutes);
 
 // Get stock data
 app.use('/api', stockData);
