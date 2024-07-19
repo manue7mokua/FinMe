@@ -1,15 +1,15 @@
-import dataset from '../data/trainingDataset';
+const { bagOfWords } = require('../data/trainingDataset')
 
 // Create a word-to-category mapping
 const wordToCategory = {};
-Object.keys(dataset).forEach(category => {
-  dataset[category].forEach(word => {
+Object.keys(bagOfWords).forEach(category => {
+  bagOfWords[category].forEach(word => {
     wordToCategory[word] = category;
   });
 });
 
 // Convert preprocessed input to binary vector
- export function createFeatureVector(preprocessedInput) {
+const createFeatureVector = (preprocessedInput) => {
   const categories = ["Food", "Entertainment", "Transport", "Bills", "Personal"];
   const featureVector = Array(categories.length).fill(0);
 
@@ -17,9 +17,11 @@ Object.keys(dataset).forEach(category => {
     const category = wordToCategory[word];
     if (category) {
       const index = categories.indexOf(category);
-      featureVector[index] = 1;
+      featureVector[index] += 1;
     }
   });
 
   return featureVector;
 }
+
+module.exports = createFeatureVector

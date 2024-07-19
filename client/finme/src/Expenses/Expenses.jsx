@@ -17,7 +17,7 @@ const Expenses = () => {
     const userId = JSON.parse(atob(token.split('.')[1])).id; // Decoding JWT to get user ID
 
     try {
-      const response = await axios.get(`http://localhost:5000/users/${userId}/expensesInfo/student`, {
+      const response = await axios.get(`http://localhost:5000/expenses/${userId}/expensesInfo/student`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

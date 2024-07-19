@@ -1,13 +1,14 @@
-import { removeStopwords } from 'stopword';
-import { stemmer } from 'stemmer';
+const { removeStopwords } = require('stopword');
+const { stem } = require('porter2');
 
- export default function preprocess(text) {
+const preprocess = (text) => {
   // Convert text to lowercase and split into words
   let words = text.toLowerCase().split(/\W+/);
   // Remove stop words
   words = removeStopwords(words);
   // Stem the words
-  words = words.map(word => stemmer(word));
+  words = words.map(word => stem(word));
   return words;
 }
 
+module.exports = preprocess

@@ -1,6 +1,5 @@
 const { PrismaClient } = require(('@prisma/client'));
 const prisma = new PrismaClient();
-var cors = require('cors');
 const auth = require('../middleware/auth.js');
 
 const express = require('express');
