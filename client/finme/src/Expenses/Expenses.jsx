@@ -11,6 +11,7 @@ import axios from 'axios';
 const Expenses = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [expenses, setExpenses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchExpenses = async () => {
     const token = localStorage.getItem('token');
@@ -25,11 +26,16 @@ const Expenses = () => {
 
       if (response.status === 200) {
         setExpenses(response.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
       } else {
         console.error(`Error fetching expenses: ${response.data.message}`);
+        setLoading(false);
       }
     } catch (error) {
       console.error(`Error fetching expenses: ${error}`);
+      setLoading(false);
     }
   };
 
@@ -42,7 +48,11 @@ const Expenses = () => {
       <Sidebar />
       <div className="flex flex-col lg:w-1/3 lg:ml-10 mt-5 lg:mt-0 container mx-auto p-5">
         <ExpensesHeader />
-        <WeeklyExpenses expenses={expenses} />
+        {loading ? (
+          <div className="text-white text-4xl">Loading Your Data :) ...</div>
+        ) : (
+          <WeeklyExpenses expenses={expenses} />
+        )}
         <button
           onClick={() => setIsModalOpen(true)}
           className='mt-6 bg-blue-500 px-4 py-2 rounded-lg text-white'

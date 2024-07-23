@@ -8,6 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 const Watchlist = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [stockList, setStockList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchWatchlist = async () => {
     const token = localStorage.getItem('token');
@@ -23,11 +24,16 @@ const Watchlist = () => {
 
       if (response.status === 200) {
         setStockList(response.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000); // Delay of 2 seconds
       } else {
         console.error(`Error fetching watchlist: ${response.data.message}`);
+        setLoading(false);
       }
     } catch (error) {
       console.error(`Error fetching watchlist: ${error}`);
+      setLoading(false);
     }
   };
 
@@ -46,16 +52,20 @@ const Watchlist = () => {
         </button>
       </div>
       <div className='p-4 inline-flex flex-col w-[380px] h-[291px] items-start justify-center gap-4 absolute top-[30px] left-0 overflow-scroll'>
-        {stockList.map((stock, index) => (
-          <StockListItem
-            key={index}
-            companyIcon={stock.companyIcon}
-            companyName={stock.companyName}
-            companyAbbrev={stock.companyAbbrev}
-            stockPrice={`${stock.stockPrice}`}
-            performancePercentage={`${stock.performancePercentage}`}
-          />
-        ))}
+      {loading ? (
+          <div className="text-black text-4xl">Loading Your Data :) ...</div>
+        ) : (
+          stockList.map((stock, index) => (
+            <StockListItem
+              key={index}
+              companyIcon={stock.companyIcon}
+              companyName={stock.companyName}
+              companyAbbrev={stock.companyAbbrev}
+              stockPrice={`${stock.stockPrice}`}
+              performancePercentage={`${stock.performancePercentage}`}
+            />
+          ))
+        )}
       </div>
       <AddCompanyToWatchlist
         isOpen={isModalOpen}
