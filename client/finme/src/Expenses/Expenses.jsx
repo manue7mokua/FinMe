@@ -6,6 +6,7 @@ import ExpensesHeader from './ExpensesHeader';
 import WeeklyExpenses from './WeeklyExpenses';
 import AddExpenseModal from './AddExpenseModal';
 import axios from 'axios';
+import { FaPlus } from 'react-icons/fa'
 
 const Expenses = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -75,21 +76,23 @@ const Expenses = () => {
     <div className='h-screen flex bg-black'>
       <Sidebar />
       <div className="flex flex-col lg:w-1/3 lg:ml-10 mt-5 lg:mt-0 container mx-auto p-5">
+        <div className="flex justify-end">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className='mt-6 bg-blue-500 p-2 rounded-full text-white'
+          >
+            <FaPlus />
+          </button>
+        </div>
         <ExpensesHeader />
         {loading ? (
-          <div className="text-white text-4xl">Loading Your Data :) ...</div>
+          <div className="text-white text-4xl">Loading...</div>
         ) : (
           <WeeklyExpenses expenses={expenses} />
         )}
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className='mt-6 bg-blue-500 px-4 py-2 rounded-lg text-white'
-        >
-          Add Expense
-        </button>
       </div>
       <div className="flex flex-col lg:w-1/3 lg:ml-10 mt-5 lg:mt-0">
-        <CategoryWeighting  categorySums={categorySums}/>
+        <CategoryWeighting categorySums={categorySums} />
         <BotQuery />
       </div>
       <AddExpenseModal
