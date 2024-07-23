@@ -73,6 +73,37 @@ router.get('/:id/expensesInfo/categorySum', async (req, res) => {
 });
 
 
+// Helper function to get the start and end date of the previous month
+const getPreviousMonthDates = () => {
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    return { startOfMonth, endOfMonth };
+  };
+  
+  // Route to get all student expenses for the previous month
+  router.get('/:id/expensesInfo/previousMonth', async (req, res) => {
+    const studentId = parseInt(req.params.id);
+    const { startOfMonth, endOfMonth } = getPreviousMonthDates();
+  
+    try {
+      // Get all student-related expenses for the previous month
+      const previousMonthExpenses = await prisma.expense.findMany({
+        where: {
+          studentId,
+          expenseDate: {
+            gte: startOfMonth,
+            lte: endOfMonth
+          }
+        }
+      });
+  
+      return res.json(previousMonthExpenses);
+    } catch (err) {
+      return res.status(500).send('Server error!');
+    }
+  });
+
 // Route to get all student expenses
 router.get('/:id/expensesInfo/student', async (req, res) => {
     const studentId = parseInt(req.params.id);
