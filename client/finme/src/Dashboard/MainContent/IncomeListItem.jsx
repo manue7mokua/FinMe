@@ -17,4 +17,3 @@ const IncomeListItem = ({
 };
 
 export default IncomeListItem;
-

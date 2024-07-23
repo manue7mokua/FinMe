@@ -103,7 +103,7 @@ const ExpensesSection = () => {
       <div className='relative top-0 left-0 font-semibold text-[#262a41] text-[40px] leading-[50px]'>
         Expenses
       </div>
-      <div className='flex flex-col w-full'>
+      <div className='flex flex-col items-center justify-evenly w-full h-full'>
         {Object.keys(groupedExpenses).map((category, index) => {
           const currentAmount = groupedExpenses[category].amount;
           const previousAmount = groupedPreviousMonthExpenses[category] ? groupedPreviousMonthExpenses[category].amount : 0;
