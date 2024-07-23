@@ -6,6 +6,9 @@ import foodicon from '../assets/foodicon.svg';
 import ExpensesChart from './ExpensesChart';
 
 const ExpensesHeader = () => {
+  const token = localStorage.getItem('token');
+  const userId = JSON.parse(atob(token.split('.')[1])).id; // Decoding JWT to get user ID
+
   return (
     <div className='flex flex-col gap-0'>
       <div className='flex flex-row p-5 bg-white w-fit'>
@@ -20,7 +23,7 @@ const ExpensesHeader = () => {
           <img src={addnewicon} alt="category-icon" className="w-10 h-10 rounded-full" />
         </div>
       </div>
-      <ExpensesChart />
+      <ExpensesChart userId={userId}/>
     </div>
   )
 }

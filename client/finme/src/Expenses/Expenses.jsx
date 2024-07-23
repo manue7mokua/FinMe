@@ -3,7 +3,6 @@ import Sidebar from '../Dashboard/Sidebar/Sidebar';
 import CategoryWeighting from './CategoryWeighting';
 import BotQuery from '../Dashboard/MainContent/BotQuery';
 import ExpensesHeader from './ExpensesHeader';
-import ExpensesChart from './ExpensesChart';
 import WeeklyExpenses from './WeeklyExpenses';
 import AddExpenseModal from './AddExpenseModal';
 import axios from 'axios';
