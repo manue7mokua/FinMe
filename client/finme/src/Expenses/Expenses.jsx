@@ -11,6 +11,7 @@ import axios from 'axios';
 const Expenses = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [expenses, setExpenses] = useState([]);
+  const [categorySums, setCategorySums] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchExpenses = async () => {
@@ -39,8 +40,36 @@ const Expenses = () => {
     }
   };
 
+  const fetchCategorySums = async () => {
+    const token = localStorage.getItem('token');
+    const userId = JSON.parse(atob(token.split('.')[1])).id; // Decoding JWT to get user ID
+
+    try {
+      const response = await axios.get(`http://localhost:5000/expenses/${userId}/expensesInfo/categorySum`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.status === 200) {
+        setCategorySums(response.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000); // Delay of 2 seconds
+      } else {
+        console.error(`Error fetching category sums: ${response.data.message}`);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(`Error fetching category sums: ${error}`);
+      setLoading(false);
+    }
+  };
+
+
   useEffect(() => {
     fetchExpenses();
+    fetchCategorySums();
   }, []);
 
   return (
@@ -61,7 +90,7 @@ const Expenses = () => {
         </button>
       </div>
       <div className="flex flex-col lg:w-1/3 lg:ml-10 mt-5 lg:mt-0">
-        <CategoryWeighting />
+        <CategoryWeighting  categorySums={categorySums}/>
         <BotQuery />
       </div>
       <AddExpenseModal
