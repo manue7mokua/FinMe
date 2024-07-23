@@ -14,12 +14,6 @@ const predictExpenseCategory = (description) => {
   const maxProbabilityIndex = probabilities.indexOf(Math.max(...probabilities));
   const predictedCategory = categories[maxProbabilityIndex];
 
-  // Log the predicted category to debug
-  console.log('Predicted Category:', predictedCategory);
-
-  console.log("expense-description", description);
-  console.log("probabilities", probabilities);
-  console.log("predictedCategory", predictedCategory);
   return predictedCategory;
 }
 

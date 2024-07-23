@@ -7,6 +7,7 @@ import axios from 'axios';
 const Wallets = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [accounts, setAccounts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchAccounts = async () => {
     const token = localStorage.getItem('token');
@@ -21,11 +22,16 @@ const Wallets = () => {
 
       if (response.status === 200) {
         setAccounts(response.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000); // Delay of 2 seconds
       } else {
         console.error(`Error fetching accounts: ${response.data.message}`);
+        setLoading(false);
       }
     } catch (error) {
       console.error(`Error fetching accounts: ${error}`);
+      setLoading(false);
     }
   };
 
@@ -38,15 +44,19 @@ const Wallets = () => {
       <Sidebar />
       <div className='flex items-center justify-around'>
         <div className='flex flex-row gap-10 p-20 items-center justify-evenly flex-wrap'>
-          {accounts.map((account, index) => (
-            <CreateCard
-              key={index}
-              bankAccountName={account.accountName}
-              bankAccountBalance={`$${account.accountBalance}`} 
-              bankAccountType='Checking Account' // Assuming all are checking accounts for simplicity
-              bankCardNumber={`**** **** **** ${account.accountNumber.slice(-4)}`}
-            />
-          ))}
+        {loading ? (
+            <div className="text-white text-4xl">Loading Your Data :) ...</div>
+          ) : (
+            accounts.map((account, index) => (
+              <CreateCard
+                key={index}
+                bankAccountName={account.accountName}
+                bankAccountBalance={`$${account.accountBalance}`}
+                bankAccountType='Checking Account' // Assuming all are checking accounts for simplicity
+                bankCardNumber={`**** **** **** ${account.accountNumber.slice(-4)}`}
+              />
+            ))
+          )}
           <button
             onClick={() => setIsModalOpen(true)}
             className='mt-6 bg-blue-500 px-4 py-2 rounded-lg text-white'

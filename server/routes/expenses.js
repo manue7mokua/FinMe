@@ -49,6 +49,30 @@ router.post('/:id/addExpense', async(req, res) => {
     res.status(200).send('Great! New expense has been added!');
 })
 
+// Route to get the sum of expenses for each category
+router.get('/:id/expensesInfo/categorySum', async (req, res) => {
+    const studentId = parseInt(req.params.id);
+
+    try {
+        // Get the sum of expenses for each category
+        const categorySums = await prisma.expense.groupBy({
+            by: ['expenseType'],
+            _sum: {
+                expenseAmount: true,
+            },
+            where: {
+                studentId,
+            }
+        });
+
+        return res.json(categorySums);
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send('Server error!');
+    }
+});
+
+
 // Route to get all student expenses
 router.get('/:id/expensesInfo/student', async (req, res) => {
     const studentId = parseInt(req.params.id);

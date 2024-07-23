@@ -1,24 +1,19 @@
 import React from 'react';
 
-const ExpenseItem = ({
-    categoryIcon,
-    categoryTitle,
-    expenseDate,
-    expenseDay,
-    expenseAmount
-}) => {
+const ExpenseItem = ({ categoryIcon, categoryTitle, expenseDate, expenseDay, expenseAmount }) => {
   return (
-    <div className="flex justify-between items-center p-3 border-b border-gray-200">
+    <div className="flex items-center justify-between p-2 border-b">
       <div className="flex items-center">
-        <div className="text-2xl">{categoryIcon}</div>
-        <div className="ml-3">
-          <p className="font-bold">{categoryTitle}</p>
-          <span className="text-sm text-gray-500">{expenseDate} • {expenseDay}</span>
+        <span className="text-2xl mr-2">{categoryIcon}</span>
+        <div>
+          <p className="font-semibold">{categoryTitle}</p>
+          <p className="text-sm text-gray-500">{expenseDay} - {expenseDate}</p>
         </div>
       </div>
-      <div className="font-bold">{expenseAmount}</div>
+      <p className="font-semibold text-red-500">{expenseAmount}</p>
     </div>
-  )
+  );
 }
 
 export default ExpenseItem;
+

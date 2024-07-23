@@ -1,21 +1,69 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import 'chart.js/auto'
+import 'chart.js/auto';
+import axios from 'axios';
 
-const ExpensesChart = () => {
-    const data = {
-        labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25'],
-        datasets: [{
-          label: 'Expenses',
-          data: [12, 19, 3, 5, 2, 3, 10, 5, 8, 9, 7, 4, 3, 10, 5, 12, 15, 8, 9, 4, 3, 10, 5, 12, 15],
-          backgroundColor: '#4CAF50',
-        }]
-      };
+const ExpensesChart = ({ selectedMonth }) => {
+  const [monthlyExpenses, setMonthlyExpenses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchMonthlyExpenses = async (month) => {
+    const token = localStorage.getItem('token');
+    const userId = JSON.parse(atob(token.split('.')[1])).id;
+
+    try {
+      const response = await axios.get(`http://localhost:5000/expenses/${userId}/expensesInfo/student`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.status === 200) {
+        const expenses = response.data;
+        const filteredExpenses = expenses.filter(expense => new Date(expense.expenseDate).getMonth() === month);
+        
+        const dailyData = new Array(31).fill(0); // Initialize array with zeros for days in a month
+        filteredExpenses.forEach(expense => {
+          const expenseDate = new Date(expense.expenseDate);
+          const day = expenseDate.getDate() - 1; // Get day (0-30)
+          dailyData[day] += parseFloat(expense.expenseAmount);
+        });
+
+        setMonthlyExpenses(dailyData);
+        setLoading(false);
+      } else {
+        console.error(`Error fetching expenses: ${response.data.message}`);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(`Error fetching expenses: ${error}`);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMonthlyExpenses(selectedMonth);
+  }, [selectedMonth]);
+
+  const data = {
+    labels: Array.from({ length: 31 }, (_, i) => i + 1), // Labels for days 1 to 31
+    datasets: [{
+      label: `Expenses for ${selectedMonth + 1}`,
+      data: monthlyExpenses,
+      backgroundColor: '#4CAF50',
+    }]
+  };
+
   return (
-    <div className='w-full max-w-xl my-6 mx-auto bg-white'>
-        <Bar data={data}/>
+    <div className='w-full max-w-xl my-6 mx-auto bg-white p-5 rounded-lg'>
+      {loading ? (
+        <div className="text-center">Loading...</div>
+      ) : (
+        <Bar data={data} />
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default ExpensesChart;
+
