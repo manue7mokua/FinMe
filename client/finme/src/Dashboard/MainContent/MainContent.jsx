@@ -17,14 +17,11 @@ const MainContent = () => {
               <TopSection/>
               <Watchlist/>
             </div>
-            <IncomesSection className='flex-grow'/>
+            <ExpensesSection/>
           </div>
           <IncomeComparisonChart/>
         </div>
-        <div className='flex flex-col gap-10'>
-          <ExpensesSection/>
-          <BotQuery/>
-        </div>
+       <IncomesSection />
       </div>
     </div>
     </>
