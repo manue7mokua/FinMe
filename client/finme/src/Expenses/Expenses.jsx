@@ -13,6 +13,7 @@ const Expenses = () => {
   const [expenses, setExpenses] = useState([]);
   const [categorySums, setCategorySums] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
 
   const fetchExpenses = async () => {
     const token = localStorage.getItem('token');
@@ -75,25 +76,27 @@ const Expenses = () => {
   return (
     <div className='h-screen flex bg-black'>
       <Sidebar />
-      <div className="flex flex-col lg:w-1/3 lg:ml-10 mt-5 lg:mt-0 container mx-auto p-5">
-        <div className="flex justify-end">
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className='mt-6 bg-blue-500 p-2 rounded-full text-white'
-          >
-            <FaPlus />
-          </button>
-        </div>
-        <ExpensesHeader />
+      <div className="flex flex-col lg:flex-row flex-grow w-full p-5 gap-6">
+        <div className="flex flex-col lg:w-2/3 bg-black p-5 rounded-lg shadow-md">
+          <div className="flex flex-row justify-between items-center mb-4">
+          <ExpensesHeader selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} />
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className='bg-blue-500 p-2 rounded-full text-white shadow-lg'
+              >
+                <FaPlus size={56}/>
+              </button>
+          </div>
         {loading ? (
           <div className="text-white text-4xl">Loading...</div>
         ) : (
           <WeeklyExpenses expenses={expenses} />
         )}
       </div>
-      <div className="flex flex-col lg:w-1/3 lg:ml-10 mt-5 lg:mt-0">
+      <div className="flex flex-col gap-6 items-center justify-center lg:w-1/3 bg:white p-5 rounded-lg shadow-md">
         <CategoryWeighting categorySums={categorySums} />
         <BotQuery />
+      </div>
       </div>
       <AddExpenseModal
         isOpen={isModalOpen}

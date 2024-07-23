@@ -1,5 +1,10 @@
 import React from 'react';
 import ExpenseItem from './ExpenseItem';
+import transporticon from '../assets/busicon.svg';
+import billsicon from '../assets/houseicon.svg';
+import personalicon from '../assets/Shopping.svg';
+import foodicon from '../assets/foodicon.svg';
+import entertainmenticon from '../assets/entertainment.svg';
 
 const WeeklyExpenses = ({ expenses }) => {
   const now = new Date();
