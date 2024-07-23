@@ -88,9 +88,9 @@ const Expenses = () => {
               </button>
           </div>
         {loading ? (
-          <div className="text-white text-4xl">Loading...</div>
+          <div className="text-white text-4xl">Getting Your Data :)</div>
         ) : (
-          <WeeklyExpenses expenses={expenses} />
+          <WeeklyExpenses expenses={expenses} refreshExpenses={fetchExpenses}/>
         )}
       </div>
       <div className="flex flex-col gap-6 items-center justify-center lg:w-1/3 bg:white p-5 rounded-lg shadow-md">

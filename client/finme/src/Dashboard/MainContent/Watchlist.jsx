@@ -37,6 +37,25 @@ const Watchlist = () => {
     }
   };
 
+  const deleteStock = async (stockId) => {
+    const token = localStorage.getItem('token');
+    const userId = JSON.parse(atob(token.split('.')[1])).id;
+
+    try {
+      await axios.delete(`http://localhost:5000/api/${userId}/deleteWatchlistItem/${stockId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        data: {
+          itemId: stockId
+        }
+      });
+      fetchWatchlist();
+    } catch (err) {
+      console.error('Failed to delete stock', err);
+    }
+  };
+
   useEffect(() => {
     fetchWatchlist();
   }, []);
@@ -58,11 +77,13 @@ const Watchlist = () => {
           stockList.map((stock, index) => (
             <StockListItem
               key={index}
+              stockId={stock.id}
               companyIcon={stock.companyIcon}
               companyName={stock.companyName}
               companyAbbrev={stock.companyAbbrev}
               stockPrice={`${stock.stockPrice}`}
               performancePercentage={`${stock.performancePercentage}`}
+              onDelete={deleteStock}
             />
           ))
         )}

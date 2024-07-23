@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from '../Dashboard/Sidebar/Sidebar';
-import IncomesSection from '../Dashboard/MainContent/IncomesSection';
+import IncomesSection from './IncomesSection';
 
 const Incomes = () => {
   return (

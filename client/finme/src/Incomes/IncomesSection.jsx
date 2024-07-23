@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import IncomeListItem from './IncomeListItem';
-import AddIncomeModal from './AddIncomeModal';
+import AddIncomeModal from '../Dashboard/MainContent/AddIncomeModal';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
@@ -22,6 +22,22 @@ const IncomesSection = () => {
       setIncomes(response.data);
     } catch (err) {
       console.error('Failed to fetch incomes', err);
+    }
+  };
+
+  const deleteIncome = async (incomeId) => {
+    const token = localStorage.getItem('token');
+    const userId = JSON.parse(atob(token.split('.')[1])).id;
+
+    try {
+      await axios.delete(`http://localhost:5000/users/${userId}/deleteIncome/${incomeId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      refreshIncomes();
+    } catch (err) {
+      console.error('Failed to delete income', err);
     }
   };
 
@@ -55,10 +71,12 @@ const IncomesSection = () => {
         {incomes.map((income, index) => (
           <IncomeListItem
             key={index}
+            incomeId={income.id}
             incomeName={income.incomeName}
             incomeType={income.incomeType}
             incomeDateRange={`${new Date(income.incomeStartDate).toLocaleDateString()} - ${new Date(income.incomeEndDate).toLocaleDateString()}`}
             incomeAmount={income.incomeAmount}
+            onDelete={deleteIncome}
           />
         ))}
       </div>

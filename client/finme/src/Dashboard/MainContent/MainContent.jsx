@@ -1,6 +1,6 @@
 import React from 'react';
 import TopSection from './TopSection';
-import IncomesSection from './IncomesSection';
+import IncomesSection from '../../Incomes/IncomesSection';
 import ExpensesSection from './ExpensesSection';
 import Watchlist from './Watchlist';
 import IncomeComparisonChart from './IncomeComparisonChart';

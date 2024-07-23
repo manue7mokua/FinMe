@@ -4,8 +4,9 @@ import billsicon from '../assets/bills.png';
 import personalicon from '../assets/personal.png';
 import foodicon from '../assets/food.png';
 import entertainmenticon from '../assets/entertainment.png';
+import deleteicon from '../assets/delete.png';
 
-const ExpenseItem = ({ categoryTitle, categoryName, expenseDate, expenseDay, expenseAmount }) => {
+const ExpenseItem = ({ expenseId, categoryTitle, categoryName, expenseDate, expenseDay, expenseAmount, onDelete }) => {
   const categoryIcons = {
     'Transport': transporticon,
     'Bills': billsicon,
@@ -25,7 +26,13 @@ const ExpenseItem = ({ categoryTitle, categoryName, expenseDate, expenseDay, exp
           <p className="text-sm text-gray-500">{expenseDay} - {expenseDate}</p>
         </div>
       </div>
-      <p className="font-semibold text-red-500">{expenseAmount}</p>
+      <div className='flex flex-row items-center justify-between gap-4'>
+        <p className="font-semibold text-red-600">{expenseAmount}</p>
+        <button onClick={() => onDelete(expenseId)}>
+          <img src={deleteicon} alt="Delete" className="w-6 h-6" />
+        </button>
+      </div>
+      
     </div>
   );
 }
