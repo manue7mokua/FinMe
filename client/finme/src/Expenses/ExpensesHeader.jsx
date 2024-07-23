@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import transporticon from '../assets/busicon.svg';
-import billsicon from '../assets/houseicon.svg';
-import personalicon from '../assets/Shopping.svg';
-import foodicon from '../assets/foodicon.svg';
-import entertainmenticon from '../assets/entertainment.svg';
+import transporticon from '../assets/transport.png';
+import billsicon from '../assets/bills.png';
+import personalicon from '../assets/personal.png';
+import foodicon from '../assets/food.png';
+import entertainmenticon from '../assets/entertainment.png';
 import ExpensesChart from './ExpensesChart';
 
 const ExpensesHeader = ({ selectedMonth, setSelectedMonth }) => {

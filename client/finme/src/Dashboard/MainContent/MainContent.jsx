@@ -4,7 +4,6 @@ import IncomesSection from './IncomesSection';
 import ExpensesSection from './ExpensesSection';
 import Watchlist from './Watchlist';
 import IncomeComparisonChart from './IncomeComparisonChart';
-import BotQuery from './BotQuery';
 
 const MainContent = () => {
   return (

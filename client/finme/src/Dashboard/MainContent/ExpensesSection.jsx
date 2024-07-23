@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import ExpenseListItem from './ExpenseListItem';
 import downArrow from '../../assets/downarrow.svg';
 import upArrow from '../../assets/uparrow.svg';
-import transporticon from '../../assets/busicon.svg';
-import billsicon from '../../assets/houseicon.svg';
-import personalicon from '../../assets/Shopping.svg';
-import foodicon from '../../assets/foodicon.svg';
-import entertainmenticon from '../../assets/entertainment.svg';
+import transporticon from '../../assets/transport.png';
+import billsicon from '../../assets/bills.png';
+import personalicon from '../../assets/personal.png';
+import foodicon from '../../assets/food.png';
+import entertainmenticon from '../../assets/entertainment.png';
 import axios from 'axios';
 
 const ExpensesSection = () => {
@@ -66,7 +66,7 @@ const ExpensesSection = () => {
         case 'Food':
             return foodicon;
         case 'Entertainment':
-            return foodicon;
+            return entertainmenticon;
         case 'Transport':
             return transporticon;
         case 'Bills':

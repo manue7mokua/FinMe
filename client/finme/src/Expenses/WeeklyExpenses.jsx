@@ -1,10 +1,5 @@
 import React from 'react';
 import ExpenseItem from './ExpenseItem';
-import transporticon from '../assets/busicon.svg';
-import billsicon from '../assets/houseicon.svg';
-import personalicon from '../assets/Shopping.svg';
-import foodicon from '../assets/foodicon.svg';
-import entertainmenticon from '../assets/entertainment.svg';
 
 const WeeklyExpenses = ({ expenses }) => {
   const now = new Date();
@@ -30,9 +25,9 @@ const WeeklyExpenses = ({ expenses }) => {
       <div className="h-48 overflow-y-scroll">
         {expensesThisWeek.map((expense, index) => (
           <ExpenseItem
-            key={index}
-            categoryIcon={expense.categoryIcon || '💸'} // Add a default icon
-            categoryTitle={expense.expenseName}
+            key={index} 
+            categoryTitle={expense.expenseType}
+            categoryName={expense.expenseName}
             expenseDate={new Date(expense.expenseDate).toLocaleTimeString()}
             expenseDay={new Date(expense.expenseDate).toLocaleDateString('en-US', { weekday: 'long' })}
             expenseAmount={`-$${expense.expenseAmount}`}
@@ -44,8 +39,8 @@ const WeeklyExpenses = ({ expenses }) => {
         {expensesLastWeek.map((expense, index) => (
           <ExpenseItem
             key={index}
-            categoryIcon={expense.categoryIcon || '💸'} // Add a default icon
-            categoryTitle={expense.expenseName}
+            categoryTitle={expense.expenseType}
+            categoryName={expense.expenseName}
             expenseDate={new Date(expense.expenseDate).toLocaleTimeString()}
             expenseDay={new Date(expense.expenseDate).toLocaleDateString('en-US', { weekday: 'long' })}
             expenseAmount={`-$${expense.expenseAmount}`}
