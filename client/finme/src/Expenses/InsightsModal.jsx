@@ -71,11 +71,14 @@ const InsightsModal = ({ isOpen, onClose, onGenerate, loading, insights }) => {
             Close
           </button>
         </div>
-        {loading && <div className="mt-4 text-center text-lg">Loading...</div>}
         {!loading && insights && (
           <div className="mt-4">
             <h3 className="text-xl font-semibold mb-2">Insights</h3>
-            <div>{insights}</div>
+            {insights.map((insight, index) => (
+              <div key={index} className="mb-2">
+                <span className="text-orange-600">{insight}</span>
+              </div>
+            ))}
           </div>
         )}
       </div>

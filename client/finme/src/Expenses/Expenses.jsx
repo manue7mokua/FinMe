@@ -8,33 +8,7 @@ import AddExpenseModal from './AddExpenseModal';
 import InsightsModal from './InsightsModal';
 import axios from 'axios';
 import { FaPlus } from 'react-icons/fa';
-
-const benchmark = {
-  Food: {
-    Groceries: [150, 250],
-    'Dining Out': [100, 200]
-  },
-  Transport: {
-    'Public Transport': [50, 100],
-    'Gas and Car Maintenance': [100, 200],
-    'Ride-sharing': [30, 60]
-  },
-  Bills: {
-    Rent: [600, 1200],
-    Utilities: [100, 200],
-    'Phone Bill': [40, 80]
-  },
-  Personal: {
-    Clothing: [50, 150],
-    'Personal Care': [30, 50],
-    Fitness: [20, 60]
-  },
-  Entertainment: {
-    Subscriptions: [20, 40],
-    Activities: [30, 60],
-    Hobbies: [20, 50]
-  }
-};
+import { calculateStatistics } from '../../../../server/statsUtils';
 
 const Expenses = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,7 +17,7 @@ const Expenses = () => {
   const [categorySums, setCategorySums] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
-  const [insights, setInsights] = useState('');
+  const [insights, setInsights] = useState([]);
 
   const fetchExpenses = async () => {
     const token = localStorage.getItem('token');
@@ -115,10 +89,11 @@ const Expenses = () => {
           const expenseMonth = new Date(expense.expenseDate).toISOString().substring(0, 7);
           return selectedMonths.includes(expenseMonth) && selectedCategories.includes(expense.expenseType);
         });
-        // console.log("filtered expenses are:", filteredExpenses)
+        console.log("filtered expenses are:", filteredExpenses)
 
-        const insights = calculateStatistics(filteredExpenses, benchmark);
-        setInsights(insights);
+        const userInsights = calculateStatistics(filteredExpenses);
+        console.log("userInsights:", userInsights)
+        setInsights(userInsights);
         setLoading(false);
       } else {
         console.error(`Error fetching expenses: ${response.data.message}`);
@@ -167,7 +142,7 @@ const Expenses = () => {
       />
       <InsightsModal
         isOpen={isInsightsModalOpen}
-        onClose={() => setIsInsightsModalOpen(false)}
+        onClose={() => setisInsightsModalOpen(false)}
         onGenerate={generateInsights}
         loading={loading}
         insights={insights}
@@ -177,4 +152,3 @@ const Expenses = () => {
 }
 
 export default Expenses;
-
