@@ -9,7 +9,6 @@ router.post('/:id/addExpense', async(req, res) => {
 
     // Get userid from url
     const studentId = parseInt(req.params.id);
-    console.log(req.body);
 
     try {
         // Validate date inputs
@@ -19,7 +18,6 @@ router.post('/:id/addExpense', async(req, res) => {
 
         // Parse and format dates
         const expenseDate = new Date(Date.parse(dateofExpense)).toISOString();
-        console.log(expenseDate)
 
         // Find bank account be accountName and studentId
         const bankAccount = await prisma.account.findFirst({
@@ -28,7 +26,6 @@ router.post('/:id/addExpense', async(req, res) => {
                 studentId
             }
         })
-        console.log(bankAccount)
 
         await prisma.expense.create({
             data: {

@@ -8,7 +8,7 @@ const incomeRoutes = require('./routes/incomes.js');
 const expenseRoutes = require('./routes/expenses.js');
 const stockData = require('./routes/stocksAPI/fetchCompanyStockData.js');
 var cron = require('node-cron');
-const updateStockPrices = require('./routes/stocksAPI/updateStockPrices.js')
+const updateStockPrices = require('./routes/stocksAPI/updateStockPrices.js');
 const PORT = 5000;
 
 app.use(cors())
