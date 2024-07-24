@@ -81,4 +81,34 @@ router.get('/watchlist/:userId', async (req, res) => {
   }
 });
 
+// Route to delete a watchlist item
+router.delete('/:id/deleteWatchlistItem/:stockId', async (req, res) => {
+  const stockId = parseInt(req.params.stockId);
+  const userId = parseInt(req.params.id);
+
+  try {
+    const watchlistItem = await prisma.watchlist.findUnique({
+      where: {
+        id: stockId,
+        studentId: userId,
+      },
+    });
+
+    if (!watchlistItem) {
+      return res.status(404).send('That watchlist item does not exist!');
+    }
+
+    await prisma.watchlist.delete({
+      where: {
+        id: stockId,
+      },
+    });
+
+    res.status(200).send('Watchlist item deleted successfully! :)');
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).send('Server error!');
+  }
+});
+
 module.exports = router;

@@ -1,12 +1,8 @@
 import React from 'react';
 import ExpenseItem from './ExpenseItem';
-import transporticon from '../assets/busicon.svg';
-import billsicon from '../assets/houseicon.svg';
-import personalicon from '../assets/Shopping.svg';
-import foodicon from '../assets/foodicon.svg';
-import entertainmenticon from '../assets/entertainment.svg';
+import axios from 'axios';
 
-const WeeklyExpenses = ({ expenses }) => {
+const WeeklyExpenses = ({ expenses, refreshExpenses }) => {
   const now = new Date();
   const oneWeekAgo = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
   const twoWeeksAgo = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 14);
@@ -24,6 +20,25 @@ const WeeklyExpenses = ({ expenses }) => {
     .sort((a, b) => b.expenseAmount - a.expenseAmount)
     .slice(0, 5);
 
+  const deleteExpense = async (expenseId) => {
+      const token = localStorage.getItem('token');
+      const userId = JSON.parse(atob(token.split('.')[1])).id;
+  
+      try {
+        await axios.delete(`http://localhost:5000/expenses/${userId}/deleteExpense`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          data: {
+            expenseId
+          }
+        });
+        refreshExpenses();
+      } catch (err) {
+        console.error('Failed to delete expense', err);
+      }
+    };
+
   return (
     <div className="p-5 bg-white">
       <h2 className="text-xl font-bold mb-4">This Week</h2>
@@ -31,11 +46,13 @@ const WeeklyExpenses = ({ expenses }) => {
         {expensesThisWeek.map((expense, index) => (
           <ExpenseItem
             key={index}
-            categoryIcon={expense.categoryIcon || '💸'} // Add a default icon
-            categoryTitle={expense.expenseName}
+            expenseId={expense.id}
+            categoryTitle={expense.expenseType}
+            categoryName={expense.expenseName}
             expenseDate={new Date(expense.expenseDate).toLocaleTimeString()}
             expenseDay={new Date(expense.expenseDate).toLocaleDateString('en-US', { weekday: 'long' })}
             expenseAmount={`-$${expense.expenseAmount}`}
+            onDelete={deleteExpense}
           />
         ))}
       </div>
@@ -44,11 +61,13 @@ const WeeklyExpenses = ({ expenses }) => {
         {expensesLastWeek.map((expense, index) => (
           <ExpenseItem
             key={index}
-            categoryIcon={expense.categoryIcon || '💸'} // Add a default icon
-            categoryTitle={expense.expenseName}
+            expenseId={expense.id}
+            categoryTitle={expense.expenseType}
+            categoryName={expense.expenseName}
             expenseDate={new Date(expense.expenseDate).toLocaleTimeString()}
             expenseDay={new Date(expense.expenseDate).toLocaleDateString('en-US', { weekday: 'long' })}
             expenseAmount={`-$${expense.expenseAmount}`}
+            onDelete={deleteExpense}
           />
         ))}
       </div>

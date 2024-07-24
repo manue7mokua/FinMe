@@ -1,10 +1,9 @@
 import React from 'react';
 import TopSection from './TopSection';
-import IncomesSection from './IncomesSection';
+import IncomesSection from '../../Incomes/IncomesSection';
 import ExpensesSection from './ExpensesSection';
 import Watchlist from './Watchlist';
 import IncomeComparisonChart from './IncomeComparisonChart';
-import BotQuery from './BotQuery';
 
 const MainContent = () => {
   return (
@@ -17,14 +16,11 @@ const MainContent = () => {
               <TopSection/>
               <Watchlist/>
             </div>
-            <IncomesSection className='flex-grow'/>
+            <ExpensesSection/>
           </div>
           <IncomeComparisonChart/>
         </div>
-        <div className='flex flex-col gap-10'>
-          <ExpensesSection/>
-          <BotQuery/>
-        </div>
+       <IncomesSection />
       </div>
     </div>
     </>

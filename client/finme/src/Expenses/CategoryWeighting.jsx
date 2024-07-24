@@ -1,10 +1,5 @@
 import React from 'react';
 import CategoryItem from './CategoryItem';
-import transporticon from '../assets/busicon.svg';
-import billsicon from '../assets/houseicon.svg';
-import personalicon from '../assets/Shopping.svg';
-import foodicon from '../assets/foodicon.svg';
-import entertainmenticon from '../assets/entertainment.svg';
 
 const CategoryWeighting = ({ categorySums }) => {
   const calculatePercentageWidth = (amount, maxAmount) => {

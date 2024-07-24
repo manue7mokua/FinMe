@@ -1,27 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const NavigationLinks = () => {
   return (
-    <nav className='w-[119px] h-[292px] relative flex flex-col justify-evenly pt-20 '>
-        <div className='text-white text-[25px] font-semibold font-["Poppins"] leading-[35px] mb-4'>
-          <Link to='/dashboard'>Dashboard</Link>
+    <nav className='w-full flex flex-col justify-center items-center'>
+      <NavLink
+        to='/dashboard'
+        className={({ isActive }) =>
+          isActive ? 'text-goldenrod' : 'text-white opacity-50'
+        }
+      >
+        <div className='text-[25px] font-semibold font-["Poppins"] leading-[35px] mb-4 hover:text-orange-400'>
+          Dashboard
         </div>
-        <div className='opacity-50 text-white text-[25px] font-semibold font-["Poppins"] leading-[35px] mb-4'>
-          <Link to='/expenses'>Expenses</Link>
+      </NavLink>
+      <NavLink
+        to='/expenses'
+        className={({ isActive }) =>
+          isActive ? 'text-goldenrod' : 'text-white opacity-50'
+        }
+      >
+        <div className='text-[25px] font-semibold font-["Poppins"] leading-[35px] mb-4 hover:text-orange-400'>
+          Expenses
         </div>
-        <div className='opacity-50 text-white text-[25px] font-semibold font-["Poppins"] leading-[35px] mb-4'>
-          <Link to='/wallets'>Wallets</Link>
+      </NavLink>
+      <NavLink
+        to='/wallets'
+        className={({ isActive }) =>
+          isActive ? 'text-goldenrod' : 'text-white opacity-50'
+        }
+      >
+        <div className='text-[25px] font-semibold font-["Poppins"] leading-[35px] mb-4 hover:text-orange-400'>
+          Wallets
         </div>
-        <div className='opacity-50 text-white text-[25px] font-semibold font-["Poppins"] leading-[35px] mb-4'>
-          <Link to='/incomes'>Incomes</Link>
+      </NavLink>
+      <NavLink
+        to='/incomes'
+        className={({ isActive }) =>
+          isActive ? 'text-goldenrod' : 'text-white opacity-50'
+        }
+      >
+        <div className='text-[25px] font-semibold font-["Poppins"] leading-[35px] mb-4 hover:text-orange-400'>
+          Incomes
         </div>
-        <div className='opacity-50 text-white text-[25px] font-semibold font-["Poppins"] leading-[35px] mb-4'>
-          <Link to='/settings'>Settings</Link>
-        </div>
+      </NavLink>
     </nav>
   )
 }
 
 export default NavigationLinks;
+
 

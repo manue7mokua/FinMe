@@ -42,27 +42,31 @@ const Wallets = () => {
   return (
     <div className='h-screen flex bg-black'>
       <Sidebar />
-      <div className='flex items-center justify-around'>
-        <div className='flex flex-row gap-10 p-20 items-center justify-evenly flex-wrap'>
-        {loading ? (
-            <div className="text-white text-4xl">Loading Your Data :) ...</div>
-          ) : (
-            accounts.map((account, index) => (
-              <CreateCard
-                key={index}
-                bankAccountName={account.accountName}
-                bankAccountBalance={`$${account.accountBalance}`}
-                bankAccountType='Checking Account' // Assuming all are checking accounts for simplicity
-                bankCardNumber={`**** **** **** ${account.accountNumber.slice(-4)}`}
-              />
-            ))
-          )}
+      <div className='flex flex-col w-full p-6'>
+        <div className='w-full flex justify-center mt-20 mb-4'>
           <button
             onClick={() => setIsModalOpen(true)}
-            className='mt-6 bg-blue-500 px-4 py-2 rounded-lg text-white'
+            className='bg-blue-500 px-4 py-2 rounded-lg text-white'
           >
             Add Bank Account
           </button>
+        </div>
+        <div className='flex justify-center'>
+          <div className='flex flex-row gap-10 p-10 items-center justify-center flex-wrap'>
+            {loading ? (
+              <div className="text-white text-4xl">Loading Your Data :) ...</div>
+            ) : (
+              accounts.map((account, index) => (
+                <CreateCard
+                  key={index}
+                  bankAccountName={account.accountName}
+                  bankAccountBalance={`$${account.accountBalance}`}
+                  bankAccountType='Checking Account' // Assuming all are checking accounts
+                  bankCardNumber={`**** **** **** ${account.accountNumber.slice(-4)}`}
+                />
+              ))
+            )}
+          </div>
         </div>
       </div>
       <AddBankAccountModal
@@ -75,4 +79,3 @@ const Wallets = () => {
 }
 
 export default Wallets;
-

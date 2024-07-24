@@ -22,6 +22,7 @@
     "express-validator": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-redis": "^7.0.3",
+    "node-cron": "^3.0.3",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.4",
     "porter2": "^1.0.1",
