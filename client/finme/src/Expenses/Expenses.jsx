@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../Dashboard/Sidebar/Sidebar';
 import CategoryWeighting from './CategoryWeighting';
-import BotQuery from '../Dashboard/MainContent/BotQuery';
+import BotQuery from './BotQuery';
 import ExpensesHeader from './ExpensesHeader';
 import WeeklyExpenses from './WeeklyExpenses';
 import AddExpenseModal from './AddExpenseModal';
