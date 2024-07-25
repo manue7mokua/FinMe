@@ -33,8 +33,6 @@ router.post('/signup',
     if (existingUser) {
         return res.status(400).send({ message: `Username is taken. Try logging in`})
     }
-
-    console.log(req.body);
     // If new user, hash password using bcrypt
     const hashedPassword = bcrypt.hashSync(password, salt);
 

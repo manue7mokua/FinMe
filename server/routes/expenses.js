@@ -2,6 +2,7 @@ const { PrismaClient } = require(('@prisma/client'));
 const prisma = new PrismaClient();
 const express = require('express');
 const router = express.Router();
+const { calculateStatistics, predictGoatedInsights, calculateAllUserStats } = require('../statsUtils');
 
 // Route to add an user's expense
 router.post('/:id/addExpense', async(req, res) => {
@@ -244,5 +245,74 @@ router.delete('/:id/deleteExpense', async (req, res) => {
     // Success if process completed without errors
     res.status(200).send('Expense deleted successfully! :)');
 })
+
+// Fetch all user expenses for benchmark calculations
+const fetchAllUserExpenses = async () => {
+    try {
+      const allUserExpenses = await prisma.expense.findMany();
+      return allUserExpenses;
+    } catch (err) {
+      console.error('Error fetching all user expenses:', err);
+      throw err;
+    }
+  };
+
+// Route to generate insights
+router.get('/:id/insights', async (req, res) => {
+    const studentId = parseInt(req.params.id);
+    const { selectedMonths, selectedCategories } = req.query;
+  
+    try {
+    // Ensure selectedMonths and selectedCategories are arrays
+    const monthsArray = Array.isArray(selectedMonths) ? selectedMonths : [selectedMonths];
+    const categoriesArray = Array.isArray(selectedCategories) ? selectedCategories : [selectedCategories];
+
+    // Initialize an array to hold all expense amounts
+    let allStudentExpenses = [];
+
+    // Fetch student expenses for each selected month
+    for (const month of monthsArray) {
+      const [year, monthIndex] = month.split('-');
+      const startDate = new Date(year, monthIndex - 1, 1).toISOString();
+      const endDate = new Date(year, monthIndex, 0, 23, 59, 59, 999).toISOString(); // End of the month
+
+      const studentExpenses = await prisma.expense.findMany({
+        where: {
+          studentId,
+          expenseDate: {
+            gte: startDate,
+            lte: endDate
+          },
+          expenseType: {
+            in: categoriesArray
+          }
+        }
+      });
+
+      // Add expenses to the allStudentExpenses array
+      allStudentExpenses = allStudentExpenses.concat(studentExpenses);
+    }
+
+    // Create an array of student expense amounts
+      const studentExpenseAmounts = allStudentExpenses.map(expense => expense.expenseAmount);
+
+    // Calculate statistics for the student
+      const userStats = calculateStatistics(studentExpenseAmounts);
+  
+      // Fetch all user expenses for benchmark
+      const allUserExpenses = await fetchAllUserExpenses();
+  
+      // Calculate statistics for all users
+      const allUserStats = calculateAllUserStats(allUserExpenses);
+  
+      // Generate predictions and insights
+      const { probability, insights } = predictGoatedInsights(userStats, allUserStats);
+  
+      return res.json({ probability, insights });
+    } catch (err) {
+      console.error('Error generating insights:', err);
+      return res.status(500).send('Server error!');
+    }
+  })
 
 module.exports = router;
