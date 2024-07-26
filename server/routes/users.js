@@ -17,7 +17,8 @@ router.post('/signup',
     check("email", "This is not a valid email").isEmail(),
     check("password", "Password must be 6 characters or more").isLength({ min: 6 }),
     async (req, res) => {
-
+    
+    // Validate request input
     const myValidationResult = validationResult(req).array();
     if (myValidationResult.length > 0) {
         return res.status(400).send({ errors: myValidationResult })
@@ -51,7 +52,7 @@ router.post('/signup',
     res.send({ token });  // Send token to the client
 })
 
-//Route to login existing user to application
+// Route to login existing user to application
 router.post('/login',
     check("email", "This is not a valid email").isEmail(),
     check("password", "Password is required").exists(),
@@ -146,6 +147,7 @@ router.post('/logout', auth, async (req, res) => {
     res.send('Logout successful')
 })
 
+// Route to get specific user info
 router.get('/info', auth, async (req, res) => {
     res.send(req.user);
 })

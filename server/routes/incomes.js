@@ -8,20 +8,18 @@ const router = express.Router();
 // Route to add an income type to database
 router.post('/:id/addIncome', async(req, res) => {
     const { incomeName, incomeType, incomeAmount, startDate, endDate } = req.body;
-    // Get userid from url
-    const studentId = parseInt(req.params.id);
+    const studentId = parseInt(req.params.id); // Get user ID from URL
 
     try {
         // Valid Date Inputs
         if (!startDate && !endDate) {
             return res.send('Enter a valid date!')
         }
-        // Get date when income stream starts
+        // Parse and format dates
         const incomeStartDate = new Date(Date.parse(startDate)).toISOString();
-
-        // Get date when income stream stops
         const incomeEndDate = new Date(Date.parse(endDate)).toISOString();
 
+        // Create a new income record in the database
         await prisma.income.create({
             data: {
                 studentId,
@@ -33,11 +31,10 @@ router.post('/:id/addIncome', async(req, res) => {
             }
         })
     } catch (err) {
-        console.log(err.message);
         return res.status(500).send('Server error!');
     }
 
-    // Return json of newly added income data
+    // Return success message
     return res.status(200).send('Great! New income stream added!');
 })
 
