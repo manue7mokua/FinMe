@@ -8,7 +8,7 @@ const router = express.Router();
 // Route to add bank account to database
 router.post('/:id/addAccount', async(req, res) => {
     const { accountNumber, accountName, accountBalance, cardExpiresOn } = req.body;
-    console.log(req.body)
+
     // Get userid from url
     const studentId = parseInt(req.params.id);
 
