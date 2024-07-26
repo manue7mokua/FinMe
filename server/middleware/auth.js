@@ -3,6 +3,7 @@ require('dotenv').config();
 const { isBlacklisted } = require('../utils/blacklist');
 
 module.exports = function(req, res, next) {
+    // Get auth token from request header
     const authToken = req.header("Authorization");
 
     if (!authToken) {
@@ -13,6 +14,7 @@ module.exports = function(req, res, next) {
         return res.status(403).send('Invalid token');
     }
 
+    // Verify the token and extract user details
     const userDetails = jwt.verify(authToken, process.env.JWT_SECRET_AUTH_TOKEN);
     req.user = userDetails;
     next();
