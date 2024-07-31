@@ -37,13 +37,20 @@ router.post('/signup',
     // If new user, hash password using bcrypt
     const hashedPassword = bcrypt.hashSync(password, salt);
 
+    // Generate a random seed
+    const randomSeed = Math.random().toString(36).substring(2);
+
+    // Generate a random avatar URL using DiceBear HTTP-API with the random seed
+    const avatarUrl = `https://api.dicebear.com/9.x/notionists/svg?seed=${randomSeed}`
+
     // Add new user to the database
     const newUser = await prisma.student.create({
         data: {
             firstName,
             lastName,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            profileImage: avatarUrl
         }
     })
 
@@ -148,8 +155,20 @@ router.post('/logout', auth, async (req, res) => {
 })
 
 // Route to get specific user info
-router.get('/info', auth, async (req, res) => {
-    res.send(req.user);
-})
+router.get('/profile/:userId', async (req, res) => {
+    const studentId = parseInt(req.params.userId);
+
+    try {
+        const user = await prisma.student.findUnique({
+            where: {
+                id: studentId
+            }
+        });
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
 
 module.exports = router;
