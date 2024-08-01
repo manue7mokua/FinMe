@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ExpenseItem from './ExpenseItem';
 import axios from 'axios';
+import '../loadingAnimation.css';
 
 const WeeklyExpenses = ({ expenses, refreshExpenses }) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer); // Cleanup the timer
+  }, []);
+
   const now = new Date();
   const oneWeekAgo = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
   const twoWeeksAgo = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 14);
@@ -41,40 +52,53 @@ const WeeklyExpenses = ({ expenses, refreshExpenses }) => {
 
   return (
     <div className="p-5 bg-white">
-      <h2 className="text-xl font-bold mb-4">This Week</h2>
-      <div className="h-48 overflow-y-scroll">
-        {expensesThisWeek.map((expense, index) => (
-          <ExpenseItem
-            key={index}
-            expenseId={expense.id}
-            categoryTitle={expense.expenseType}
-            categoryName={expense.expenseName}
-            expenseDate={new Date(expense.expenseDate).toLocaleTimeString()}
-            expenseDay={new Date(expense.expenseDate).toLocaleDateString('en-US', { weekday: 'long' })}
-            expenseAmount={`-$${expense.expenseAmount}`}
-            onDelete={deleteExpense}
-          />
-        ))}
-      </div>
-      <h2 className="text-xl font-bold mt-6 mb-4">Last Week</h2>
-      <div className="h-48 overflow-y-scroll">
-        {expensesLastWeek.map((expense, index) => (
-          <ExpenseItem
-            key={index}
-            expenseId={expense.id}
-            categoryTitle={expense.expenseType}
-            categoryName={expense.expenseName}
-            expenseDate={new Date(expense.expenseDate).toLocaleTimeString()}
-            expenseDay={new Date(expense.expenseDate).toLocaleDateString('en-US', { weekday: 'long' })}
-            expenseAmount={`-$${expense.expenseAmount}`}
-            onDelete={deleteExpense}
-          />
-        ))}
-      </div>
+      {loading ? (
+        <div className="flex justify-center items-center w-full h-full">
+          <div className="cube">
+            <div className="side"></div>
+            <div className="side"></div>
+            <div className="side"></div>
+            <div className="side"></div>
+            <div className="side"></div>
+            <div className="side"></div>
+          </div>
+        </div>
+      ) : (
+        <>
+          <h2 className="text-xl font-bold mb-4">This Week</h2>
+          <div className="h-48 overflow-y-scroll">
+            {expensesThisWeek.map((expense, index) => (
+              <ExpenseItem
+                key={index}
+                expenseId={expense.id}
+                categoryTitle={expense.expenseType}
+                categoryName={expense.expenseName}
+                expenseDate={new Date(expense.expenseDate).toLocaleTimeString()}
+                expenseDay={new Date(expense.expenseDate).toLocaleDateString('en-US', { weekday: 'long' })}
+                expenseAmount={`-$${expense.expenseAmount}`}
+                onDelete={deleteExpense}
+              />
+            ))}
+          </div>
+          <h2 className="text-xl font-bold mt-6 mb-4">Last Week</h2>
+          <div className="h-48 overflow-y-scroll">
+            {expensesLastWeek.map((expense, index) => (
+              <ExpenseItem
+                key={index}
+                expenseId={expense.id}
+                categoryTitle={expense.expenseType}
+                categoryName={expense.expenseName}
+                expenseDate={new Date(expense.expenseDate).toLocaleTimeString()}
+                expenseDay={new Date(expense.expenseDate).toLocaleDateString('en-US', { weekday: 'long' })}
+                expenseAmount={`-$${expense.expenseAmount}`}
+                onDelete={deleteExpense}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }
 
 export default WeeklyExpenses;
-
-

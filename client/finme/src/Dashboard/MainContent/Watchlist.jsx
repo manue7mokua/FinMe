@@ -4,6 +4,7 @@ import StockListItem from './StockListItem';
 import AddCompanyToWatchlist from './AddCompanyToWatchList';
 import { jwtDecode } from 'jwt-decode';
 import { FaPlus } from 'react-icons/fa';
+import '../../loadingAnimation.css';
 
 const Watchlist = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +27,7 @@ const Watchlist = () => {
         setStockList(response.data);
         setTimeout(() => {
           setLoading(false);
-        }, 2000); // Delay of 2 seconds
+        }, 3000); // Delay of 2 seconds
       } else {
         console.error(`Error fetching watchlist: ${response.data.message}`);
         setLoading(false);
@@ -71,7 +72,16 @@ const Watchlist = () => {
       <div className='flex flex-col gap-2 h-[calc(100%-56px)] overflow-y-auto'>
         <div className='p-4 flex flex-col gap-2 h-[calc(100%-56px)] overflow-y-auto'>
           {loading ? (
-            <div className="text-black text-4xl">Loading Your Data :) ...</div>
+            <div className="flex justify-center items-center h-full">
+              <div className="cube">
+                <div className="side"></div>
+                <div className="side"></div>
+                <div className="side"></div>
+                <div className="side"></div>
+                <div className="side"></div>
+                <div className="side"></div>
+              </div>
+            </div>
             ) : (
               stockList.map((stock, index) => (
                 <StockListItem

@@ -3,10 +3,12 @@ import IncomeListItem from './IncomeListItem';
 import AddIncomeModal from '../Dashboard/MainContent/AddIncomeModal';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import '../loadingAnimation.css';
 
 const IncomesSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [incomes, setIncomes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const refreshIncomes = async () => {
     const token = localStorage.getItem('token');
@@ -20,8 +22,10 @@ const IncomesSection = () => {
         }
       });
       setIncomes(response.data);
+      setTimeout(() => setLoading(false), 3000);
     } catch (err) {
       console.error('Failed to fetch incomes', err);
+      setLoading(false) // Ensure loading state is cleared even if there's an error
     }
   };
 
@@ -68,19 +72,33 @@ const IncomesSection = () => {
         <div className="text-sm font-semibold text-gray-600">AMOUNT</div>
         <div className='text-sm font-semibold text-gray-600'></div> {/* Empty header for delete button */}
       </div>
-      <div className='flex flex-col gap-3 w-full'>
-        {incomes.map((income, index) => (
-          <IncomeListItem
-            key={index}
-            incomeId={income.id}
-            incomeName={income.incomeName}
-            incomeType={income.incomeType}
-            incomeDateRange={`${new Date(income.incomeStartDate).toLocaleDateString()} - ${new Date(income.incomeEndDate).toLocaleDateString()}`}
-            incomeAmount={income.incomeAmount}
-            onDelete={deleteIncome}
-          />
-        ))}
-      </div>
+      
+      {loading ? (
+        <div className="flex justify-center items-center w-full h-full">
+          <div className="cube">
+            <div className="side"></div>
+            <div className="side"></div>
+            <div className="side"></div>
+            <div className="side"></div>
+            <div className="side"></div>
+            <div className="side"></div>
+          </div>
+        </div>
+      ) : (
+        <div className='flex flex-col gap-3 w-full'>
+          {incomes.map((income, index) => (
+            <IncomeListItem
+              key={index}
+              incomeId={income.id}
+              incomeName={income.incomeName}
+              incomeType={income.incomeType}
+              incomeDateRange={`${new Date(income.incomeStartDate).toLocaleDateString()} - ${new Date(income.incomeEndDate).toLocaleDateString()}`}
+              incomeAmount={income.incomeAmount}
+              onDelete={deleteIncome}
+            />
+          ))}
+        </div>
+      )}
       
       <AddIncomeModal
         isOpen={isModalOpen}
