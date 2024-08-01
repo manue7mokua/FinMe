@@ -68,24 +68,27 @@ const Watchlist = () => {
           <FaPlus size={24}/>
         </button>
       </div>
-      <div className='p-4 flex flex-col gap-2 h-[calc(100%-56px)] overflow-y-auto'>
-      {loading ? (
-          <div className="text-black text-4xl">Loading Your Data :) ...</div>
-        ) : (
-          stockList.map((stock, index) => (
-            <StockListItem
-              key={index}
-              stockId={stock.id}
-              companyIcon={stock.companyIcon}
-              companyName={stock.companyName}
-              companyAbbrev={stock.companyAbbrev}
-              stockPrice={`${stock.stockPrice}`}
-              performancePercentage={`${stock.performancePercentage}`}
-              onDelete={deleteStock}
-            />
-          ))
-        )}
+      <div className='flex flex-col gap-2 h-[calc(100%-56px)] overflow-y-auto'>
+        <div className='p-4 flex flex-col gap-2 h-[calc(100%-56px)] overflow-y-auto'>
+          {loading ? (
+            <div className="text-black text-4xl">Loading Your Data :) ...</div>
+            ) : (
+              stockList.map((stock, index) => (
+                <StockListItem
+                  key={index}
+                  stockId={stock.id}
+                  companyIcon={stock.companyIcon}
+                  companyName={stock.companyName}
+                  companyAbbrev={stock.companyAbbrev}
+                  stockPrice={`${stock.stockPrice}`}
+                  performancePercentage={`${stock.performancePercentage}`}
+                  onDelete={deleteStock}
+                />
+              ))
+            )}
+        </div>
       </div>
+      
       <AddCompanyToWatchlist
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
