@@ -3,7 +3,7 @@ import TopSection from './TopSection';
 import IncomesSection from '../../Incomes/IncomesSection';
 import ExpensesSection from './ExpensesSection';
 import Watchlist from './Watchlist';
-import IncomeComparisonChart from './IncomeComparisonChart';
+import ExpenseComparisonChart from './ExpenseComparisonChart';
 
 const MainContent = () => {
   return (
@@ -18,7 +18,7 @@ const MainContent = () => {
             </div>
             <ExpensesSection/>
           </div>
-          <IncomeComparisonChart/>
+          <ExpenseComparisonChart/>
         </div>
        <IncomesSection />
       </div>
