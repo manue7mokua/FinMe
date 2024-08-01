@@ -51,7 +51,7 @@ const WeeklyExpenses = ({ expenses, refreshExpenses }) => {
     };
 
   return (
-    <div className="p-5 bg-white">
+    <div className="p-5 bg-white rounded-lg">
       {loading ? (
         <div className="flex justify-center items-center w-full h-full">
           <div className="cube">
@@ -65,7 +65,7 @@ const WeeklyExpenses = ({ expenses, refreshExpenses }) => {
         </div>
       ) : (
         <>
-          <h2 className="text-xl font-bold mb-4">This Week</h2>
+          <h2 className="text-xl text-green-600 font-bold mb-4">This Week</h2>
           <div className="h-48 overflow-y-scroll">
             {expensesThisWeek.map((expense, index) => (
               <ExpenseItem
@@ -80,7 +80,7 @@ const WeeklyExpenses = ({ expenses, refreshExpenses }) => {
               />
             ))}
           </div>
-          <h2 className="text-xl font-bold mt-6 mb-4">Last Week</h2>
+          <h2 className="text-xl text-red-600 font-bold mt-6 mb-4">Last Week</h2>
           <div className="h-48 overflow-y-scroll">
             {expensesLastWeek.map((expense, index) => (
               <ExpenseItem

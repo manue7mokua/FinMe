@@ -55,7 +55,7 @@ const ExpensesChart = ({ selectedMonth }) => {
   };
 
   return (
-    <div className='w-full max-w-xl my-6 mx-auto bg-white p-5 rounded-lg'>
+    <div className='w-full h-full max-w-xl mx-auto bg-white p-5 rounded-lg'>
       {loading ? (
         <div className="text-center">Loading...</div>
       ) : (
