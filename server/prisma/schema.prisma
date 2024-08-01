@@ -19,6 +19,7 @@ model Student {
   lastName String
   email String @unique
   password String
+  profileImage String?
   accounts Account[]
   incomes Income[]
   expenses Expense[]
