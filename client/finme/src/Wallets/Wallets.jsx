@@ -3,6 +3,7 @@ import Sidebar from '../Dashboard/Sidebar/Sidebar';
 import CreateCard from './CreateCard';
 import AddBankAccountModal from './AddBankAccountModal';
 import axios from 'axios';
+import '../loadingAnimation.css';
 
 const Wallets = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,7 +25,7 @@ const Wallets = () => {
         setAccounts(response.data);
         setTimeout(() => {
           setLoading(false);
-        }, 2000); // Delay of 2 seconds
+        }, 3500); // Delay of 3.5 seconds
       } else {
         console.error(`Error fetching accounts: ${response.data.message}`);
         setLoading(false);
@@ -54,7 +55,16 @@ const Wallets = () => {
         <div className='flex justify-center'>
           <div className='flex flex-row gap-10 p-10 items-center justify-center flex-wrap'>
             {loading ? (
-              <div className="text-white text-4xl">Loading Your Data :) ...</div>
+              <div className="flex justify-center items-center w-full h-full">
+                <div className="cube">
+                  <div className="side"></div>
+                  <div className="side"></div>
+                  <div className="side"></div>
+                  <div className="side"></div>
+                  <div className="side"></div>
+                  <div className="side"></div>
+                </div>
+              </div>
             ) : (
               accounts.map((account, index) => (
                 <CreateCard

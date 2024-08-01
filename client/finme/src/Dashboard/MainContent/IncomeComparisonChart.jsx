@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -9,6 +9,7 @@ import {
     Tooltip,
     Legend
 } from 'chart.js';
+import '../../loadingAnimation.css';
 
 ChartJS.register(
     CategoryScale,
@@ -20,6 +21,13 @@ ChartJS.register(
 );
 
 const IncomeComparisonChart = () => {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+    }, [])
     const data = {
         labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         datasets: [
@@ -59,12 +67,25 @@ const IncomeComparisonChart = () => {
 
   return (
     <div className='h-[285px] bg-white p-6 rounded-lg shadow-md flex items-center justify-center'>
-        <div className='h-[200px] flex flex-col justify-center items-center'>
-           <h3 className='text-xl font-bold'>Weekly Income Comparison</h3>
-            <Bar data={data} options={options}/>
-        </div>
+        {loading ? (
+            <div className="flex justify-center items-center w-full h-full">
+                <div className="cube">
+                    <div className="side"></div>
+                    <div className="side"></div>
+                    <div className="side"></div>
+                    <div className="side"></div>
+                    <div className="side"></div>
+                    <div className="side"></div>
+                </div>
+            </div>
+        ) : (
+            <div className='h-[200px] flex flex-col justify-center items-center'>
+                <h3 className='text-xl font-bold'>Weekly Income Comparison</h3>
+                <Bar data={data} options={options} />
+            </div>
+        )}
     </div>
-  )
+  );
 }
 
 export default IncomeComparisonChart;

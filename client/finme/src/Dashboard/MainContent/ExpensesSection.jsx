@@ -8,10 +8,12 @@ import personalicon from '../../assets/personal.png';
 import foodicon from '../../assets/food.png';
 import entertainmenticon from '../../assets/entertainment.png';
 import axios from 'axios';
+import '../../loadingAnimation.css';
 
 const ExpensesSection = () => {
   const [expenses, setExpenses] = useState([]);
   const [previousMonthExpenses, setPreviousMonthExpenses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchExpenses = async () => {
@@ -56,8 +58,11 @@ const ExpensesSection = () => {
       }
     };
 
-    fetchExpenses();
-    fetchPreviousMonthExpenses();
+    setTimeout(() => {
+      fetchExpenses();
+      fetchPreviousMonthExpenses();
+      setLoading(false)
+    }, 3000) // Delay of 3 seconds
   }, []);
 
   // Define the function before using it
@@ -104,23 +109,36 @@ const ExpensesSection = () => {
         Expenses
       </div>
       <div className='flex flex-col items-center justify-evenly w-full h-full'>
-        {Object.keys(groupedExpenses).map((category, index) => {
-          const currentAmount = groupedExpenses[category].amount;
-          const previousAmount = groupedPreviousMonthExpenses[category] ? groupedPreviousMonthExpenses[category].amount : 0;
-          const percentageChange = calculatePercentageChange(currentAmount, previousAmount);
-          const indicator = percentageChange >= 0 ? upArrow : downArrow;
+        {loading ? (
+          <div className="flex justify-center items-center h-full">
+            <div className="cube">
+              <div className="side"></div>
+              <div className="side"></div>
+              <div className="side"></div>
+              <div className="side"></div>
+              <div className="side"></div>
+              <div className="side"></div>
+            </div>
+          </div>
+        ) : (
+          Object.keys(groupedExpenses).map((category, index) => {
+            const currentAmount = groupedExpenses[category].amount;
+            const previousAmount = groupedPreviousMonthExpenses[category] ? groupedPreviousMonthExpenses[category].amount : 0;
+            const percentageChange = calculatePercentageChange(currentAmount, previousAmount);
+            const indicator = percentageChange >= 0 ? upArrow : downArrow;
 
-          return (
-            <ExpenseListItem
-              key={index}
-              icon={groupedExpenses[category].icon}
-              category={category}
-              amount={`$${currentAmount.toFixed(2)}`}
-              percentageChange={`${percentageChange.toFixed(2)}%`}
-              indicator={indicator}
-            />
-          );
-        })}
+            return (
+              <ExpenseListItem
+                key={index}
+                icon={groupedExpenses[category].icon}
+                category={category}
+                amount={`$${currentAmount.toFixed(2)}`}
+                percentageChange={`${percentageChange.toFixed(2)}%`}
+                indicator={indicator}
+              />
+            );
+          })
+        )}
       </div>
     </div>
   );
