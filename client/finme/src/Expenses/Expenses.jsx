@@ -140,7 +140,6 @@ const Expenses = () => {
         isOpen={isInsightsModalOpen}
         onClose={() => setIsInsightsModalOpen(false)}
         onGenerate={generateInsights}
-        loading={loading}
         insights={insights}
       />
     </div>
