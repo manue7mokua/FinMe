@@ -155,7 +155,7 @@ router.post('/logout', auth, async (req, res) => {
 })
 
 // Route to get specific user info
-router.get('/profile/:userId', async (req, res) => {
+router.get('/details/:userId', async (req, res) => {
     const studentId = parseInt(req.params.userId);
 
     try {
@@ -165,6 +165,30 @@ router.get('/profile/:userId', async (req, res) => {
             }
         });
         res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
+
+// Route to update the details of the logged-in user
+router.put('/profile/update/:userId', async (req, res) => {
+    const { firstName, lastName, email, profileImage } = req.body;
+    const studentId = parseInt(req.params.userId);
+
+    try {
+        const updatedUser = await prisma.student.update({
+            where: {
+                id: studentId,
+            },
+            data: {
+                firstName,
+                lastName,
+                email,
+                profileImage,
+            },
+        });
+        res.json(updatedUser);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
