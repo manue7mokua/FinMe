@@ -51,14 +51,14 @@ const IncomesSection = () => {
 
   return (
     <div className='flex flex-col w-full h-full items-start gap-4 p-5 bg-white rounded-lg overflow-auto'>
-      <div className="text-2xl font-semibold text-gray-900 flex flex-row items-center justify-between w-full">
+      <div className="text-4xl font-semibold text-gray-900 flex flex-row items-center justify-between w-full">
         <div>
           Incomes
         </div>
         <div className="flex justify-end w-full mt-4">
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-4 py-2 bg-blue-500 text-white rounded-full"
+            className="px-4 py-2 bg-blue-500 text-white text-xl rounded-full"
           >
             Add New
           </button>

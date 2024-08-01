@@ -6,7 +6,7 @@ const Incomes = () => {
   return (
     <div className='h-screen flex bg-black'>
         <Sidebar />
-        <div className='w-full flex items-center justify-center'>
+        <div className='w-full m-7 flex items-center justify-center'>
             <IncomesSection />
         </div>
     </div>
