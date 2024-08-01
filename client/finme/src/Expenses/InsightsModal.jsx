@@ -5,6 +5,7 @@ const InsightsModal = ({ isOpen, onClose, onGenerate, insights }) => {
   const [selectedMonths, setSelectedMonths] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [localInsights, setLocalInsights] = useState('');
 
   const handleMonthChange = (e) => {
     const { value, checked } = e.target;
@@ -25,12 +26,14 @@ const InsightsModal = ({ isOpen, onClose, onGenerate, insights }) => {
     setTimeout(() => {
       setLoading(false);
       onGenerate(selectedMonths, selectedCategories);
+      setLocalInsights(insights);
     }, 5000); // 5-second delay
   };
 
   useEffect(() => {
     if (!isOpen) {
       setLoading(false);
+      setLocalInsights('');
     }
   }, [isOpen]);
 
@@ -95,10 +98,10 @@ const InsightsModal = ({ isOpen, onClose, onGenerate, insights }) => {
                 Close
               </button>
             </div>
-            {insights && (
+            {localInsights && (
               <div className="mt-4">
                 <h3 className="text-xl font-semibold mb-2">Insights</h3>
-                {insights.map((insight, index) => (
+                {localInsights.map((insight, index) => (
                   <div key={index} className="mb-2">
                     <span className="text-orange-600">{insight}</span>
                   </div>
