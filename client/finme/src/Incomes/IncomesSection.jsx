@@ -61,11 +61,12 @@ const IncomesSection = () => {
         </div>
       </div>
       
-      <div className="flex justify-between items-center w-full">
+      <div className="grid grid-cols-5 gap-4 w-full mt-4">
         <div className="text-sm font-semibold text-gray-600">NAME</div>
         <div className="text-sm font-semibold text-gray-600">TYPE</div>
         <div className="text-sm font-semibold text-gray-600">DATE RANGE</div>
-        <div className="text-sm font-semibold text-gray-600 text-right">AMOUNT</div>
+        <div className="text-sm font-semibold text-gray-600">AMOUNT</div>
+        <div className='text-sm font-semibold text-gray-600'></div> {/* Empty header for delete button */}
       </div>
       <div className='flex flex-col gap-3 w-full'>
         {incomes.map((income, index) => (
