@@ -66,7 +66,7 @@ const TopSection = () => {
   }, []);
 
   return (
-    <div className="flex flex-col w-[380px] h-[300px] bg-white items-center gap-2.5 relative rounded-lg">
+    <div className="flex flex-col w-[380px] h-[240px] bg-white items-center gap-2.5 relative rounded-lg">
       {loading ? (
         <div className="flex justify-center items-center h-full">
           <div className="cube">
@@ -79,7 +79,7 @@ const TopSection = () => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col w-full items-center gap-5 px-6 py-5 bg-white rounded-lg shadow-md">
+        <div className="flex flex-col w-full h-full items-center gap-5 px-6 py-5 bg-white rounded-lg shadow-md">
         <header className="flex w-full items-center justify-between border-b border-gray-300 pb-3">
           <div className="flex items-center gap-2">
             <div className="text-black font-bold text-xl">

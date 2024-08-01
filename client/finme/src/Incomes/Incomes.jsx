@@ -9,7 +9,6 @@ const Incomes = () => {
         <div className='w-full flex items-center justify-center'>
             <IncomesSection />
         </div>
-
     </div>
   )
 }
