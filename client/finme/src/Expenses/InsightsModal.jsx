@@ -5,7 +5,7 @@ const InsightsModal = ({ isOpen, onClose, onGenerate, insights }) => {
   const [selectedMonths, setSelectedMonths] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [localInsights, setLocalInsights] = useState('');
+  const [localInsights, setLocalInsights] = useState(null);
 
   const handleMonthChange = (e) => {
     const { value, checked } = e.target;
@@ -33,7 +33,7 @@ const InsightsModal = ({ isOpen, onClose, onGenerate, insights }) => {
   useEffect(() => {
     if (!isOpen) {
       setLoading(false);
-      setLocalInsights('');
+      setLocalInsights(null);
     }
   }, [isOpen]);
 
