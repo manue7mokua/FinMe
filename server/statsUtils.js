@@ -109,12 +109,37 @@ const calculateStatistics = (expenses) => {
     // Generate insights based on the calculated probability
     if (normalizedProbability > 0.75) {
       const outlierDetails = userOutliers.map(outlier => outlier.expenseName).join(', ');
-      insights.push(`You are likely to overspend next month. This is because you had ${userOutliers.length} outliers compared to ${allUserOutliers.length} total outliers for users. The outliers in your expenses are: ${outlierDetails}.`);
+      insights.push(`You are likely to overspend next month. This is because you had ${userOutliers.length} outliers compared to ${allUsersOutliers.length} total outliers for users. The outliers in your expenses are: ${outlierDetails}.`);
     } else if (normalizedProbability > 0.5) {
       insights.push(`There is a moderate chance you might overspend next month. Consider reviewing your recent spending habits and setting a budget.`);
     } else {
       insights.push(`Your spending is stable. Keep up the good financial habits and continue monitoring your expenses.`);
     }
+
+    if (weightOutliers > 0.5) {
+      insights.push("You've had several unusually high expenses recently. Try to identify and limit these outliers.");
+    } else {
+      insights.push("You have a controlled spending pattern with minimal outliers. Keep maintaining your budget.");
+    }
+  
+    if (weightKurtosis > 0.5) {
+      insights.push("Your spending shows signs of extreme values. Consider analyzing and managing these large expenses.");
+    } else {
+      insights.push("Your spending is evenly distributed without extreme values. This indicates a balanced approach to spending.");
+    }
+  
+    if (weightSkewness > 0.5) {
+      insights.push("You have a few very high expenses. Aim to balance your spending to avoid financial strain.");
+    } else {
+      insights.push("Your spending is evenly distributed. Keep up the balanced approach to your finances.");
+    }
+  
+    if (weightStdDev > 0.5) {
+      insights.push("Your spending varies significantly. Strive for more consistent spending habits to improve financial stability.");
+    } else {
+      insights.push("Your spending is consistent. Continue to maintain this stability in your finances.");
+    }
+  
   
     return { probability: normalizedProbability, insights };
   };
