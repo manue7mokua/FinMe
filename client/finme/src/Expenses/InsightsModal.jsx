@@ -100,13 +100,15 @@ const InsightsModal = ({ isOpen, onClose, onGenerate, insights }) => {
             </div>
             {localInsights && (
               <div className="mt-4">
-                <h3 className="text-xl font-semibold mb-2">Insights</h3>
-                {localInsights.map((insight, index) => (
-                  <div key={index} className="mb-2">
-                    <span className="text-orange-600">{insight}</span>
-                  </div>
-                ))}
-              </div>
+                <h3 className="text-xl font-semibold mb-4 text-gray-800">Insights</h3>
+                <div className="space-y-4">
+                  {localInsights.map((insight, index) => (
+                    <div key={index} className="p-2 bg-white rounded-lg shadow-md border border-gray-200 transform transition duration-500 hover:scale-105 hover:shadow-lg">
+                      <span className="text-orange-600 text-sm">{insight}</span>
+                    </div>
+                  ))}
+                </div>
+            </div>
             )}
           </>
         )}
