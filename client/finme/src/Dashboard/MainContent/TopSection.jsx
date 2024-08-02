@@ -65,6 +65,11 @@ const TopSection = () => {
     fetchData();
   }, []);
 
+  const calculateProgress = () => {
+    const totalMoney = totalIncomes + totalBankBalances;
+    return (totalMoney - totalExpenses) / totalMoney * 100;
+  };
+
   return (
     <div className="flex flex-col w-[380px] h-[240px] bg-white items-center gap-2.5 relative rounded-lg">
       {loading ? (
@@ -119,27 +124,34 @@ const TopSection = () => {
             </div>
           </div>
           <div className="flex flex-col items-center gap-4">
-            <div className="flex flex-col items-center">
-              <div className="relative">
-                <img className="relative" alt="Ellipse Bar" src={ellipseBar} />
-                <img className="absolute w-9 h-9 top-8 left-14" alt="Meter" src={meter} />
-              </div>
-              <div className="flex w-full items-center justify-between">
-                <div className="text-gray-400 text-center text-xs">
-                  $0
+              <div className="flex flex-col items-center">
+                <div className="relative w-24 h-24">
+                  <svg viewBox="0 0 100 100" className="absolute w-full h-full">
+                    <circle cx="50" cy="50" r="45" stroke="#E5E5E5" strokeWidth="5" fill="none" />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="45"
+                      stroke="#FF6347"
+                      strokeWidth="5"
+                      fill="none"
+                      strokeDasharray={`${calculateProgress()} 100`}
+                      strokeLinecap="round"
+                      className="transition-all duration-500"
+                    />
+                  </svg>
+                  <img className="absolute w-9 h-9 top-[calc(50%-1rem)] left-[calc(50%-1rem)]" alt="Meter" src={meter} />
                 </div>
-                <div className="text-black font-semibold text-center text-sm">
-                  12K
-                </div>
-                <div className="text-gray-400 text-right text-xs">
-                  $20k
+                <div className="flex w-full items-center justify-between">
+                  <div className="text-gray-400 text-center text-xs">
+                    $0
+                  </div>
+                  <div className="text-gray-400 text-right text-xs">
+                    $Max
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="text-black text-sm text-center">
-              Target vs Achievement
-            </div>
-          </div>
         </div>
       </div>
       )}  
