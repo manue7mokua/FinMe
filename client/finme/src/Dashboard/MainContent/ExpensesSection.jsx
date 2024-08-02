@@ -104,8 +104,8 @@ const ExpensesSection = () => {
   };
 
   return (
-    <div className='flex flex-col w-full h-full items-start gap-[15px] px-6 py-5 relative bg-white rounded-[17px]'>
-      <div className='relative top-0 left-0 font-semibold text-[#262a41] text-[40px] leading-[50px]'>
+    <div className='flex flex-col w-full h-full items-center gap-[15px] px-6 py-5 bg-white rounded-lg'>
+      <div className='relative top-0 left-0 font-semibold text-[#262a41] text-[35px] leading-[50px] rounded-lg'>
         Expenses
       </div>
       <div className='flex flex-col items-center justify-evenly w-full h-full'>

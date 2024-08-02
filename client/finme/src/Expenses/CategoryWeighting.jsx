@@ -20,7 +20,7 @@ const CategoryWeighting = ({ categorySums }) => {
   const maxAmount = Math.max(...categorySums.map(category => category._sum.expenseAmount)) * 2;
 
   return (
-    <div className='bg-white h-full p-5 rounded-lg'>
+    <div className='bg-white w-full h-full p-5 rounded-lg'>
       <h2 className='text-xl font-bold mb-4'>Where your money goes?</h2>
       {loading ? (
         <div className="flex justify-center items-center w-full h-full">

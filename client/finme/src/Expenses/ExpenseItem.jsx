@@ -22,7 +22,11 @@ const ExpenseItem = ({ expenseId, categoryTitle, categoryName, expenseDate, expe
       <div className="flex items-center">
         <span className="w-10 h-10 rounded-full"><img src={icon} className='w-8'></img></span>
         <div>
-          <p className="font-semibold">{categoryTitle} - {categoryName}</p>
+          <div className='flex flex-row gap-2'>
+            <p className="font-bold text-yellow-800">{categoryTitle}</p>
+            <p className="font-semibold">-</p>
+            <p className="font-semibold">{categoryName}</p>
+          </div>
           <p className="text-sm text-gray-500">{expenseDay} - {expenseDate}</p>
         </div>
       </div>

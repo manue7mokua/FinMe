@@ -109,9 +109,9 @@ const Expenses = () => {
   return (
     <div className='h-screen flex bg-black'>
       <Sidebar />
-      <div className="flex flex-col lg:flex-row flex-grow w-full p-5 gap-6">
-        <div className="flex flex-col lg:w-2/3 bg-black p-5 rounded-lg shadow-md">
-          <div className="flex flex-row justify-between items-center mb-4">
+      <div className="flex flex-col lg:flex-row flex-grow w-full h-full p-5 gap-4">
+        <div className="flex flex-col bg-black p-5 gap-4 rounded-lg shadow-md">
+          <div className="flex flex-row justify-between gap-7 items-center mb-4">
             <ExpensesHeader selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} />
             <button
               onClick={() => setIsModalOpen(true)}
@@ -126,7 +126,7 @@ const Expenses = () => {
             <WeeklyExpenses expenses={expenses} refreshExpenses={fetchExpenses}/>
           )}
         </div>
-        <div className="flex flex-col gap-6 items-center justify-center lg:w-1/3 bg:white p-5 rounded-lg shadow-md">
+        <div className="flex flex-col gap-6 items-center justify-center h-full lg:w-1/3 bg:white p-5 rounded-lg shadow-md">
           <CategoryWeighting categorySums={categorySums} />
           <BotQuery onButtonClick={() => setIsInsightsModalOpen(true)}/>
         </div>
@@ -140,7 +140,6 @@ const Expenses = () => {
         isOpen={isInsightsModalOpen}
         onClose={() => setIsInsightsModalOpen(false)}
         onGenerate={generateInsights}
-        loading={loading}
         insights={insights}
       />
     </div>

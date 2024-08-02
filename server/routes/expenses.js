@@ -70,7 +70,6 @@ router.get('/:id/expensesInfo/categorySum', async (req, res) => {
     }
 });
 
-
 // Helper function to get the start and end date of the previous month
 const getPreviousMonthDates = () => {
     const now = new Date();
@@ -314,5 +313,55 @@ router.get('/:id/insights', async (req, res) => {
       return res.status(500).send('Server error!');
     }
   })
+
+// Helper function to get the start and end date of the week
+const getWeekDates = (date) => {
+    const startOfWeek = new Date(date);
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+    startOfWeek.setHours(0, 0, 0, 0);
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(endOfWeek.getDate() + 6);
+    endOfWeek.setHours(23, 59, 59, 999);
+    return { startOfWeek, endOfWeek };
+};
+
+// Route to get expenses week by week
+router.get('/:id/expensesInfo/weekly', async (req, res) => {
+    const studentId = parseInt(req.params.id);
+    const now = new Date();
+    const { startOfWeek, endOfWeek } = getWeekDates(now);
+    const previousWeek = new Date(startOfWeek);
+    previousWeek.setDate(previousWeek.getDate() - 7);
+    const { startOfWeek: startOfPreviousWeek, endOfWeek: endOfPreviousWeek } = getWeekDates(previousWeek);
+
+    try {
+        // Get expenses for this week
+        const expensesThisWeek = await prisma.expense.findMany({
+        where: {
+            studentId,
+            expenseDate: {
+            gte: startOfWeek,
+            lte: endOfWeek,
+            },
+        },
+        });
+
+        // Get expenses for last week
+        const expensesLastWeek = await prisma.expense.findMany({
+        where: {
+            studentId,
+            expenseDate: {
+            gte: startOfPreviousWeek,
+            lte: endOfPreviousWeek,
+            },
+        },
+        });
+
+        return res.json({ thisWeek: expensesThisWeek, lastWeek: expensesLastWeek });
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).send('Server error!');
+    }
+});
 
 module.exports = router;

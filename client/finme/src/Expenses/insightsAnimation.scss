@@ -1,0 +1,84 @@
+.container {
+display: block;
+height: 300px;
+width: 300px;
+margin: 0 auto;
+}
+
+.baton {
+display: block;
+height: 2px;
+width: 70px;
+background-color: #459fa5;
+animation: scale 1.25s infinite linear;
+transform-origin: 0;
+transform: rotate(-10deg);
+}
+
+.baton:before,
+.baton:after {
+content: '';
+display: block;
+height: 5px;
+width: 5px;
+background-color: #f5a51c;
+position: absolute;
+top: -2px;
+border-radius: 5px;
+}
+
+.baton:after {
+right: 0;
+}
+
+.metronome {
+transform-origin: 0;
+animation: metronome 1.25s infinite linear;
+}
+
+@for $i from 0 through 35 {
+.baton-#{$i} {
+    height: 1px;
+    width: 150px;
+    position: absolute;
+    top: calc(50% - 8px);
+    transform-origin: 100%;
+    transform: rotate($i * 10deg);
+    .baton,
+    .baton:after,
+    .metronome {
+    animation-delay: -$i * 0.14s;
+    }
+}
+}
+
+@keyframes metronome {
+0% {
+    transform: rotate(-25deg);
+}
+50% {
+    transform: rotate(25deg);
+}
+100% {
+    transform: rotate(-25deg);
+}
+}
+
+@keyframes scale {
+0% {
+    transform: scaleX(1);
+}
+25% {
+    transform: scaleX(0.74);
+}
+50% {
+    transform: scaleX(1);
+}
+75% {
+    transform: scaleX(1.16);
+}
+100% {
+    transform: scaleX(1);
+}
+}
+  

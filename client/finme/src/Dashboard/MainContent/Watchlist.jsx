@@ -62,15 +62,14 @@ const Watchlist = () => {
   }, []);
 
   return (
-    <div className='relative w-full h-full bg-white rounded-lg'>
-      <div className='sticky top-0 z-10 bg-white flex items-center justify-between gap-2 p-2'>
+    <div className='relative w-full h-[240px] bg-white rounded-lg'>
+      <div className='sticky top-0 z-10 bg-white flex items-center justify-between gap-2 p-2 rounded-lg'>
         <div className='font-bold text-[#2c2c2c] text-lg'>Watchlist</div>
         <button onClick={() => setIsModalOpen(true)} className='bg-sky-600 p-2 rounded-full text-white shadow-lg'>
           <FaPlus size={24}/>
         </button>
       </div>
-      <div className='flex flex-col gap-2 h-[calc(100%-56px)] overflow-y-auto'>
-        <div className='p-4 flex flex-col gap-2 h-[calc(100%-56px)] overflow-y-auto'>
+      <div className='flex flex-col gap-2 p-4 h-[calc(100%-56px)] overflow-y-auto'>
           {loading ? (
             <div className="flex justify-center items-center h-full">
               <div className="cube">
@@ -96,7 +95,6 @@ const Watchlist = () => {
                 />
               ))
             )}
-        </div>
       </div>
       
       <AddCompanyToWatchlist
