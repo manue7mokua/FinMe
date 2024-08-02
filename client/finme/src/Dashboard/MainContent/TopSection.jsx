@@ -98,7 +98,7 @@ const TopSection = () => {
             {new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}
           </div>
         </header>
-        <div className="flex h-32 items-start gap-4">
+        <div className="w-full flex h-32 items-start justify-between p-2 gap-4">
           <div className="flex flex-col h-full items-start justify-center gap-6">
             <div className="flex items-start gap-1">
               <img src={award} alt="award icon" className="w-6 h-6" />

@@ -4,7 +4,7 @@ import deleteicon from '../../assets/delete.png'
 
 const StockListItem = ({ stockId, companyIcon, companyName, companyAbbrev, stockPrice, performancePercentage, onDelete }) => {
   return (
-    <div className='flex justify-between items-center w-full bg-gray-100 p-3 rounded-lg transform transition duration-300 hover:scale-105'>
+    <div className='flex justify-between items-center w-full bg-gray-100 p-3 rounded-lg transform transition duration-300 hover:scale-105 hover:bg-sky-100'>
         <div className='flex items-center gap-2'>
             <img src={companyIcon} alt={`${companyName} icon`} className='w-6 h-6' />
             <div>

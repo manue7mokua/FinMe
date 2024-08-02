@@ -66,7 +66,7 @@ const SignInForm = () => {
         />
         {error && <p className='text-red-500'>{error}</p>}
         {success && <p className='text-green-500'>{success}</p>}
-        <button type='submit' className='w-full p-2 bg-pink-500 text-white rounded-lg'>
+        <button type='submit' className='w-full p-2 bg-black text-white rounded-lg'>
           Sign In
         </button>
         <div className='text-center'>

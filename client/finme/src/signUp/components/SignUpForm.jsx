@@ -77,9 +77,9 @@ const SignUpForm = () => {
       {error && <p className="text-red-500">{error}</p>}
       {success && <p className='text-green-500'>{success}</p>}
       <p className="text-sm text-gray-600">Use 8 or more characters with a mix of letters, numbers & symbols</p>
-      <button type="submit" className="w-full p-2 bg-pink-500 text-white rounded-lg">Create account</button>
+      <button type="submit" className="w-full p-2 bg-black text-white rounded-lg">Create account</button>
       <div className="text-center">
-        <a href="/login" className="text-sm text-gray-600">Already have an account? Log in</a>
+        <a href="/login" className="text-sm text-amber-700">Already have an account? Log in</a>
       </div>
     </form>
   );
