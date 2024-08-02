@@ -40,11 +40,11 @@ const InsightsModal = ({ isOpen, onClose, onGenerate, insights }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-      <div className="bg-white p-5 rounded-lg flex flex-col gap-4 max-w-md w-full">
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center w-full">
+      <div className="bg-white p-5 rounded-lg flex flex-col max-w-md w-full">
         {!loading && <h2 className="text-2xl font-semibold mb-4">Generate Insights</h2>}
         {loading ? (
-          <div className="container items-center">
+          <div className="container flex justify-center items-center">
             {[...Array(36)].map((_, i) => (
               <div key={i} className={`baton-${i}`}>
                 <div className="metronome">

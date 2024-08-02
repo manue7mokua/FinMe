@@ -1,8 +1,12 @@
 .container {
-display: block;
+display: flex;
+justify-content: center;
+align-items: center;
 height: 300px;
 width: 300px;
 margin: 0 auto;
+position: relative;
+padding: 0;
 }
 
 .baton {
@@ -41,7 +45,8 @@ animation: metronome 1.25s infinite linear;
     height: 1px;
     width: 150px;
     position: absolute;
-    top: calc(50% - 8px);
+    top: 50%; // Center vertically
+    left: 15%; // Center horizontally
     transform-origin: 100%;
     transform: rotate($i * 10deg);
     .baton,
