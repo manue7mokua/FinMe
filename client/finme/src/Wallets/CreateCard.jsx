@@ -10,11 +10,11 @@ const CreateCard = ({
 }) => {
   return (
     <div className='relative flex flex-col w-[352px] h-[267px] items-start gap-2'>
-        <div className={`w-full flex flex-col items-start justify-start pt-0 px-0 pb-[35px] box-border gap-[8px] leading-[normal] tracking-[normal] text-left text-3xl text-gray-02 font-bold-16-24`}>
+        <div className={`w-full flex flex-col items-start justify-start pt-0 px-0 pb-[35px]  box-border gap-[8px] leading-[normal] tracking-[normal] text-left text-3xl text-gray-02 font-bold-16-24`}>
       <h3 className="m-0 relative text-inherit leading-[32px] font-normal font-inherit">
         {bankAccountName}
       </h3>
-      <section className="self-stretch shadow-[0px_20px_25px_rgba(76,_103,_100,_0.1)] rounded-lg bg-white flex flex-col items-start justify-start py-5 px-6 text-left text-3xl text-default-black font-bold-16-24">
+      <section className="transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-custom-orange self-stretch shadow-[0px_20px_25px_rgba(76,_103,_100,_0.1)] rounded-lg bg-white flex flex-col items-start justify-start py-5 px-6 text-left text-3xl text-default-black font-bold-16-24">
         <div className="self-stretch flex flex-col items-start justify-start gap-[12px]">
           <div className="self-stretch flex flex-row items-center justify-between pt-0 px-0 pb-2.5 gap-[20px] border-b-[1px] border-solid border-gray-06">
             <div className="relative leading-[32px] capitalize font-extrabold inline-block min-w-[80px] whitespace-nowrap">

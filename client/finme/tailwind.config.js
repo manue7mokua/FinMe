@@ -32,6 +32,7 @@ export default {
       },
       boxShadow: {
         "shadow-01": "var(--shadow-01)",
+        "custom-orange": "0 8px 12px -2px rgba(255, 165, 0, 0.5), 0 4px 6px -1px rgba(255, 165, 0, 0.5)"
       },
     },
   },
