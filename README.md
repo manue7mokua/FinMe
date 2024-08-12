@@ -1,7 +1,12 @@
-# FinMe (Meta University Engineering Capstone Project)
+# FinMe (College Student Financial Dashboard)
 ---
 
 ### For a more detailed breakdown of the project: [Notion Doc](https://www.notion.so/FinMe-Meta-University-Engineering-Project-82d1f533297b4507a2d57e19af88350a?pvs=4)
+
+## App Demo Video
+
+https://github.com/user-attachments/assets/25209d49-5279-4cf8-81c5-6ed78f30fd5e
+
 
 ## Overview
 ---
@@ -28,23 +33,3 @@
 - Tracking of user income sources.
 6. Stock market information:
 - Display of companies stock market performance. (user's choice)
-
-## Technical Challenges
----
-
-1. Multinomial Logistic regression
-- Optimized expenses weighted multinomial logistic regression adapting to new user data.
-- Automated expense categorization on user expense description.
-
-2. Generalized information on expenditure percentiles
-- Allow user to know aggregated data / generalizations regarding their spending habits (e.g: percentages spend on each category) and tell them which percentile they fall in compared to other users.
-
-## Stretch Features
----
-
-1. Responsive UI for multiple pages
-2. Light and dark mode toggle.
-3. Email and password update management. (Setting page to manage their account)
-4. Google OAuth sign in.
-5. Error message redirect to error page.
-6. Enable genAI query on popup modal.
